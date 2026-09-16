@@ -1,0 +1,1086 @@
+[
+  {
+    "id": "0025",
+    "name": "槓鈴臥推",
+    "category": "胸",
+    "equipment": "槓鈴、臥推椅",
+    "muscles": "胸大肌",
+    "steps": [
+      "仰躺在臥推椅上，雙腳穩踩地面，肩胛骨穩定貼住椅面。",
+      "雙手正握槓鈴，握距略寬於肩膀，將槓鈴移至胸部上方。",
+      "彎曲手肘，緩慢將槓鈴降至胸前，手肘不要過度向外張開。",
+      "短暫停頓後，將槓鈴推回胸部上方，過程保持手腕穩定。",
+      "控制速度重複動作，不要讓槓鈴在胸口反彈。"
+    ],
+    "gifFile": "0025-EIeI8Vf.gif",
+    "thumbnailFile": "0025-EIeI8Vf.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0314",
+    "name": "上斜啞鈴臥推",
+    "category": "胸",
+    "equipment": "啞鈴、可調式訓練椅",
+    "muscles": "胸大肌",
+    "steps": [
+      "將訓練椅調成約 45 度，背部靠穩椅背，雙腳踩地。",
+      "雙手各持一顆啞鈴，掌心朝前，將啞鈴放在胸部兩側。",
+      "向上推起啞鈴，直到雙臂伸展，保持肩膀穩定。",
+      "緩慢將啞鈴降回胸部兩側，手肘約彎曲 90 度。",
+      "保持核心穩定，控制速度重複動作。"
+    ],
+    "gifFile": "0314-ns0SIbU.gif",
+    "thumbnailFile": "0314-ns0SIbU.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0308",
+    "name": "啞鈴飛鳥",
+    "category": "胸",
+    "equipment": "啞鈴、平板訓練椅",
+    "muscles": "胸大肌",
+    "steps": [
+      "仰躺在平板訓練椅上，雙腳踩地，雙手各持一顆啞鈴。",
+      "將啞鈴舉至胸部上方，掌心相對，手肘微彎。",
+      "維持手肘角度，沿弧線向兩側打開雙臂，直到胸部感到適度伸展。",
+      "短暫停頓後，收緊胸肌，沿原路將啞鈴合回胸部上方。",
+      "控制速度重複動作，避免過度向下拉伸肩膀。"
+    ],
+    "gifFile": "0308-yz9nUhF.gif",
+    "thumbnailFile": "0308-yz9nUhF.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0227",
+    "name": "滑輪夾胸",
+    "category": "胸",
+    "equipment": "滑輪機、單手握把",
+    "muscles": "胸大肌",
+    "steps": [
+      "將兩側滑輪調至高位，雙手各握一個握把，站在機器中央稍前方。",
+      "雙腳站穩，身體略向前傾，收緊核心，手肘保持微彎。",
+      "沿弧線將雙手向前下方合攏，感受胸肌收縮。",
+      "短暫停頓後，緩慢打開雙臂，回到起始位置。",
+      "維持手肘角度，控制速度重複動作。"
+    ],
+    "gifFile": "0227-Pr9Rhf4.gif",
+    "thumbnailFile": "0227-Pr9Rhf4.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 GIF 將胸高滑輪改為高位，雙手向前下方合攏。"
+  },
+  {
+    "id": "0662",
+    "name": "伏地挺身",
+    "category": "胸",
+    "equipment": "徒手",
+    "muscles": "胸大肌",
+    "steps": [
+      "雙手撐地，間距略寬於肩膀，雙腳向後伸直。",
+      "收緊核心，讓頭部、軀幹與腿部保持一直線。",
+      "彎曲手肘，緩慢降低身體，直到胸部接近地面。",
+      "短暫停頓後，推地伸直雙臂，回到起始位置。",
+      "保持身體穩定，避免腰部下塌，重複動作。"
+    ],
+    "gifFile": "0662-I4hDWkc.gif",
+    "thumbnailFile": "0662-I4hDWkc.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0289",
+    "name": "啞鈴平板臥推",
+    "category": "胸",
+    "equipment": "啞鈴、平板訓練椅",
+    "muscles": "胸大肌",
+    "steps": [
+      "仰躺在平板訓練椅上，雙腳踩穩地面，雙手各持一顆啞鈴。",
+      "將啞鈴舉至胸部上方，掌心朝前，肩胛骨保持穩定。",
+      "緩慢彎曲手肘，將啞鈴降至胸部兩側。",
+      "短暫停頓，再將啞鈴推回胸部上方。",
+      "控制速度重複動作，避免用肩膀聳起借力。"
+    ],
+    "gifFile": "0289-SpYC0Kp.gif",
+    "thumbnailFile": "0289-SpYC0Kp.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0047",
+    "name": "槓鈴上斜臥推",
+    "category": "胸",
+    "equipment": "槓鈴、上斜臥推椅",
+    "muscles": "胸大肌",
+    "steps": [
+      "將訓練椅調成約 45 度，背部靠穩椅背，雙腳踩地。",
+      "雙手正握槓鈴，握距略寬於肩膀，將槓鈴移至上胸前方。",
+      "緩慢降低槓鈴至上胸附近，手肘避免過度外張。",
+      "短暫停頓後，將槓鈴向上推回起始位置。",
+      "保持肩胛與核心穩定，控制速度重複動作。"
+    ],
+    "gifFile": "0047-3TZduzM.gif",
+    "thumbnailFile": "0047-3TZduzM.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0033",
+    "name": "槓鈴下斜臥推",
+    "category": "胸",
+    "equipment": "槓鈴、下斜臥推椅",
+    "muscles": "胸大肌",
+    "steps": [
+      "仰躺在下斜臥推椅上，固定雙腳，頭部略低於臀部。",
+      "雙手正握槓鈴，握距略寬於肩膀，先穩定肩胛骨。",
+      "將槓鈴移出架子，緩慢降至胸部附近。",
+      "短暫停頓後，向上推回起始位置，保持手腕穩定。",
+      "控制重量重複動作，完成後將槓鈴穩放回架上。"
+    ],
+    "gifFile": "0033-GrO65fd.gif",
+    "thumbnailFile": "0033-GrO65fd.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0577",
+    "name": "器械胸推",
+    "category": "胸",
+    "equipment": "胸推機",
+    "muscles": "胸大肌",
+    "steps": [
+      "調整座椅，使握把接近胸部高度，背部靠穩椅墊。",
+      "雙腳踩穩地面，握住把手，手肘自然彎曲。",
+      "向前推動握把，直到雙臂接近伸直。",
+      "短暫停頓，再緩慢彎曲手肘，回到起始位置。",
+      "肩膀不要聳起，控制速度重複動作。"
+    ],
+    "gifFile": "0577-T0yTjgW.gif",
+    "thumbnailFile": "0577-T0yTjgW.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0251",
+    "name": "雙槓撐體",
+    "category": "胸",
+    "equipment": "徒手、雙槓",
+    "muscles": "胸大肌、肱三頭肌",
+    "steps": [
+      "雙手握穩雙槓，伸展雙臂支撐身體，肩膀保持穩定。",
+      "軀幹略向前傾，彎曲手肘，緩慢降低身體。",
+      "下降至肩部仍感到舒適且可控制的範圍，不要強迫下沉。",
+      "以胸部與手臂出力，將身體推回起始位置。",
+      "保持動作平順，避免前後擺盪借力。"
+    ],
+    "gifFile": "0251-9WTm7dq.gif",
+    "thumbnailFile": "0251-9WTm7dq.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0652",
+    "name": "引體向上",
+    "category": "背",
+    "equipment": "單槓",
+    "muscles": "背闊肌",
+    "steps": [
+      "雙手正握單槓，掌心朝外，雙臂伸展懸垂。",
+      "收緊核心，穩定肩胛骨，避免身體前後擺動。",
+      "彎曲手肘，將身體向上拉，讓胸部靠近單槓。",
+      "在最高點短暫停頓，再緩慢降低身體。",
+      "回到起始位置後，控制速度重複動作。"
+    ],
+    "gifFile": "0652-lBDjFxJ.gif",
+    "thumbnailFile": "0652-lBDjFxJ.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0198",
+    "name": "滑輪下拉",
+    "category": "背",
+    "equipment": "滑輪下拉機",
+    "muscles": "背闊肌",
+    "steps": [
+      "調整座椅與腿部固定墊，讓雙腳踩穩地面、大腿固定。",
+      "雙手正握長桿，握距略寬於肩膀。",
+      "收緊核心，軀幹稍微後傾，將長桿向下拉至上胸前方。",
+      "手肘向下移動，感受背部收縮，短暫停頓。",
+      "控制長桿緩慢回升，保持握緊，重複動作。"
+    ],
+    "gifFile": "0198-RVwzP10.gif",
+    "thumbnailFile": "0198-RVwzP10.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0027",
+    "name": "槓鈴划船",
+    "category": "背",
+    "equipment": "槓鈴",
+    "muscles": "背闊肌、上背肌群",
+    "steps": [
+      "雙腳與肩同寬，膝蓋微彎，雙手正握槓鈴。",
+      "從髖部向前折，保持背部平直，讓槓鈴自然垂下。",
+      "將手肘往後帶，將槓鈴拉向下胸部附近，收攏肩胛骨。",
+      "短暫停頓後，緩慢將槓鈴放回起始位置。",
+      "軀幹保持穩定，避免用甩動身體的方式拉起重量。"
+    ],
+    "gifFile": "0027-eZyBC3j.gif",
+    "thumbnailFile": "0027-eZyBC3j.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0292",
+    "name": "單臂啞鈴划船",
+    "category": "背",
+    "equipment": "啞鈴、平板訓練椅",
+    "muscles": "背闊肌",
+    "steps": [
+      "將一側手掌與膝蓋放在訓練椅上，另一腳穩踩地面。",
+      "另一手握啞鈴，掌心朝向身體，讓手臂自然向下伸展。",
+      "保持背部平直、核心穩定，將啞鈴拉向身體側邊，手肘貼近軀幹。",
+      "感受背部收縮後，緩慢降低啞鈴，避免轉動軀幹。",
+      "完成一側後換邊，重複相同動作。"
+    ],
+    "gifFile": "0292-C0MA9bC.gif",
+    "thumbnailFile": "0292-C0MA9bC.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "GIF 使用椅面支撐單手與膝蓋，補正起始姿勢。"
+  },
+  {
+    "id": "0861",
+    "name": "坐姿滑輪划船",
+    "category": "背",
+    "equipment": "坐姿划船機",
+    "muscles": "背闊肌、上背肌群",
+    "steps": [
+      "坐在划船機上，雙腳踩穩踏板，膝蓋微彎。",
+      "雙手握緊握把，背部保持平直，肩膀放鬆。",
+      "將握把拉向軀幹，同時將手肘往後帶，收攏肩胛骨。",
+      "短暫停頓，再緩慢伸展雙臂，將握把送回起始位置。",
+      "全程握緊握把，避免聳肩或大幅前後搖晃。"
+    ],
+    "gifFile": "0861-fUBheHs.gif",
+    "thumbnailFile": "0861-fUBheHs.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "1326",
+    "name": "反手引體向上",
+    "category": "背",
+    "equipment": "單槓",
+    "muscles": "背闊肌、肱二頭肌",
+    "steps": [
+      "雙手反握單槓，掌心朝向自己，握距約與肩同寬。",
+      "收緊核心，保持身體穩定，避免前後擺動。",
+      "彎曲手肘，將胸部往單槓方向拉起。",
+      "下巴接近或越過槓面後短暫停頓。",
+      "緩慢降低身體，回到雙臂伸展的位置，再重複動作。"
+    ],
+    "gifFile": "1326-T2mxWqc.gif",
+    "thumbnailFile": "1326-T2mxWqc.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0499",
+    "name": "反向划船",
+    "category": "背",
+    "equipment": "固定橫槓、徒手",
+    "muscles": "背闊肌、上背肌群",
+    "steps": [
+      "將橫槓固定在適合的高度，身體位於槓下方，雙手正握橫槓。",
+      "雙腳向前伸，腳跟踩地，讓頭部、軀幹與腿部保持一直線。",
+      "收緊核心，彎曲手肘，將胸部拉向橫槓。",
+      "收攏肩胛骨，短暫停頓後緩慢伸展雙臂。",
+      "避免臀部下塌，控制速度重複動作。"
+    ],
+    "gifFile": "0499-bZGHsAZ.gif",
+    "thumbnailFile": "0499-bZGHsAZ.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0238",
+    "name": "直臂滑輪下拉",
+    "category": "背",
+    "equipment": "滑輪機、直桿",
+    "muscles": "背闊肌",
+    "steps": [
+      "將直桿裝在高位滑輪上，面向機器，雙腳站穩。",
+      "雙手正握直桿，掌心朝下，手肘保持微彎。",
+      "收緊核心，以背部出力，將直桿沿弧線拉向大腿前方。",
+      "在最低點短暫停頓，保持手肘角度穩定。",
+      "緩慢讓直桿回升，避免過度拱腰，再重複動作。"
+    ],
+    "gifFile": "0238-x69MAlq.gif",
+    "thumbnailFile": "0238-x69MAlq.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0606",
+    "name": "T 槓划船",
+    "category": "背",
+    "equipment": "T 槓划船機",
+    "muscles": "背闊肌、上背肌群",
+    "steps": [
+      "雙腳踩穩機器踏板，膝蓋微彎，從髖部向前折。",
+      "雙手握緊把手，背部保持平直，收緊核心。",
+      "將手肘向後帶，把握把拉向軀幹。",
+      "收攏肩胛骨，在收縮位置短暫停頓。",
+      "緩慢伸展雙臂，保持軀幹角度穩定，重複動作。"
+    ],
+    "gifFile": "0606-aaXr7ld.gif",
+    "thumbnailFile": "0606-aaXr7ld.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "原文描述坐姿胸靠，GIF 實際為站姿俯身 T 槓划船，依示範修正名稱與姿勢。"
+  },
+  {
+    "id": "0214",
+    "name": "單臂坐姿滑輪划船",
+    "category": "背",
+    "equipment": "滑輪機、單手握把",
+    "muscles": "背闊肌",
+    "steps": [
+      "坐在滑輪機前，雙腳踩穩，膝蓋微彎。",
+      "雙手各握一個握把，手臂向前伸展，背部保持平直。",
+      "一側手肘貼近身體向後帶，將握把拉向軀幹，另一手維持伸展。",
+      "感受背部收縮，短暫停頓後緩慢將握把送回。",
+      "維持軀幹穩定，左右手交替進行。"
+    ],
+    "gifFile": "0214-vpp9Ku2.gif",
+    "thumbnailFile": "0214-vpp9Ku2.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0405",
+    "name": "啞鈴肩推",
+    "category": "肩膀",
+    "equipment": "啞鈴、訓練椅",
+    "muscles": "三角肌",
+    "steps": [
+      "坐穩在訓練椅上，雙腳踩地，雙手各持一顆啞鈴。",
+      "將啞鈴舉至肩膀高度，掌心朝前，收緊核心。",
+      "將啞鈴向上推，直到雙臂在頭頂上方伸展。",
+      "短暫停頓後，緩慢將啞鈴降回肩膀高度。",
+      "保持軀幹穩定，避免過度拱腰，重複動作。"
+    ],
+    "gifFile": "0405-znQUdHY.gif",
+    "thumbnailFile": "0405-znQUdHY.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0334",
+    "name": "啞鈴側平舉",
+    "category": "肩膀",
+    "equipment": "啞鈴",
+    "muscles": "三角肌中束",
+    "steps": [
+      "雙腳與肩同寬，雙手各持一顆啞鈴，掌心朝向身體。",
+      "保持背部平直、核心穩定，手肘微彎。",
+      "將雙臂向兩側抬起，直到接近肩膀高度。",
+      "短暫停頓後，緩慢將啞鈴降回身體兩側。",
+      "避免聳肩或甩動重量，控制速度重複動作。"
+    ],
+    "gifFile": "0334-DsgkuIt.gif",
+    "thumbnailFile": "0334-DsgkuIt.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0310",
+    "name": "啞鈴前平舉",
+    "category": "肩膀",
+    "equipment": "啞鈴",
+    "muscles": "三角肌前束",
+    "steps": [
+      "雙腳與肩同寬，雙手各持一顆啞鈴，掌心朝向大腿。",
+      "保持軀幹穩定，雙臂自然伸展，手肘不要鎖死。",
+      "將啞鈴向前抬起，直到與肩膀同高。",
+      "短暫停頓後，緩慢將啞鈴降回大腿前方。",
+      "避免後仰或甩動身體，重複動作。"
+    ],
+    "gifFile": "0310-3eGE2JC.gif",
+    "thumbnailFile": "0310-3eGE2JC.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0380",
+    "name": "反向飛鳥",
+    "category": "肩膀",
+    "equipment": "啞鈴",
+    "muscles": "三角肌後束",
+    "steps": [
+      "雙腳與肩同寬，膝蓋微彎，雙手各持一顆啞鈴。",
+      "從髖部向前折，保持背部平直，讓雙臂垂在胸部下方。",
+      "手肘保持微彎，將雙臂向兩側打開，直到接近肩膀高度。",
+      "短暫停頓後，緩慢將啞鈴放回起始位置。",
+      "收緊核心，避免抬起軀幹借力，重複動作。"
+    ],
+    "gifFile": "0380-v1qBec9.gif",
+    "thumbnailFile": "0380-v1qBec9.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0233",
+    "name": "滑輪面拉",
+    "category": "肩膀",
+    "equipment": "滑輪機、繩索握把",
+    "muscles": "三角肌後束、上背肌群",
+    "steps": [
+      "將繩索裝在較高的滑輪上，面向機器，雙手握住繩索兩端。",
+      "向後站至繩索有張力，雙腳站穩，收緊核心。",
+      "將繩索拉向臉部兩側，手肘向外打開，收攏肩胛骨。",
+      "在收縮位置短暫停頓，保持軀幹穩定。",
+      "緩慢伸展雙臂回到起始位置，重複動作。"
+    ],
+    "gifFile": "0233-ZfyAGhK.gif",
+    "thumbnailFile": "0233-ZfyAGhK.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "核對 GIF 為將繩索拉至臉旁的面拉，補足拉動方向。"
+  },
+  {
+    "id": "2137",
+    "name": "阿諾肩推",
+    "category": "肩膀",
+    "equipment": "啞鈴、訓練椅",
+    "muscles": "三角肌",
+    "steps": [
+      "坐在有靠背的訓練椅上，雙腳踩地，雙手各持一顆啞鈴。",
+      "將啞鈴放在肩膀前方，手肘彎曲，掌心朝向自己。",
+      "一邊向上推起啞鈴，一邊將掌心轉向前方。",
+      "推至雙臂接近伸直，短暫停頓。",
+      "沿原路緩慢下降並轉回掌心朝內的姿勢，重複動作。"
+    ],
+    "gifFile": "2137-Xy4jlWA.gif",
+    "thumbnailFile": "2137-Xy4jlWA.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0091",
+    "name": "坐姿槓鈴肩推",
+    "category": "肩膀",
+    "equipment": "槓鈴、訓練椅",
+    "muscles": "三角肌",
+    "steps": [
+      "坐穩在訓練椅上，雙腳踩地，背部保持穩定。",
+      "雙手正握槓鈴，握距略寬於肩膀，將槓鈴移至肩膀前方。",
+      "收緊核心，將槓鈴向上推至頭頂上方。",
+      "在雙臂接近伸直時短暫停頓，避免過度拱腰。",
+      "緩慢將槓鈴降回肩膀前方，重複動作。"
+    ],
+    "gifFile": "0091-kTbSH9h.gif",
+    "thumbnailFile": "0091-kTbSH9h.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0178",
+    "name": "滑輪側平舉",
+    "category": "肩膀",
+    "equipment": "滑輪機、單手握把",
+    "muscles": "三角肌中束",
+    "steps": [
+      "將兩個握把裝在兩側低位滑輪上，雙腳站穩，雙手分別握住對側把手。",
+      "保持背部平直，收緊核心，手肘微彎。",
+      "將雙臂向兩側抬起，直到接近肩膀高度。",
+      "短暫停頓後，沿原路緩慢降低握把。",
+      "避免聳肩或甩動身體，控制速度重複動作。"
+    ],
+    "gifFile": "0178-goJ6ezq.gif",
+    "thumbnailFile": "0178-goJ6ezq.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0602",
+    "name": "器械反向飛鳥",
+    "category": "肩膀",
+    "equipment": "反向飛鳥機",
+    "muscles": "三角肌後束",
+    "steps": [
+      "調整座椅，面向機器坐下，胸部靠穩支撐墊，雙腳踩地。",
+      "雙手握住握把，手肘維持微彎。",
+      "將手臂向外、向後打開，感受肩膀後側出力。",
+      "在收縮位置短暫停頓，肩膀不要聳起。",
+      "緩慢將握把送回前方，重複動作。"
+    ],
+    "gifFile": "0602-myfUsKf.gif",
+    "thumbnailFile": "0602-myfUsKf.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0406",
+    "name": "啞鈴聳肩",
+    "category": "肩膀",
+    "equipment": "啞鈴",
+    "muscles": "斜方肌上束",
+    "steps": [
+      "雙腳與肩同寬站立，雙手各持一顆啞鈴，手臂自然垂在兩側。",
+      "保持頭頸自然、背部平直，掌心朝向身體。",
+      "將肩膀垂直向上提起，手臂保持伸展。",
+      "在最高點短暫停頓，感受上背部收縮。",
+      "緩慢放下肩膀，不要繞圈轉動，重複動作。"
+    ],
+    "gifFile": "0406-NJzBsGJ.gif",
+    "thumbnailFile": "0406-NJzBsGJ.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0043",
+    "name": "槓鈴深蹲",
+    "category": "腿",
+    "equipment": "槓鈴、深蹲架",
+    "muscles": "股四頭肌、臀大肌",
+    "steps": [
+      "雙腳與肩同寬，腳尖略朝外，將槓鈴穩放在上背部，避免壓在頸部。",
+      "雙手握穩槓鈴，收緊核心，保持胸口與背部穩定。",
+      "彎曲髖部與膝蓋，臀部向後下方移動，像坐下般下蹲。",
+      "在能維持穩定姿勢的範圍內，下蹲至大腿接近平行地面。",
+      "保持膝蓋朝向腳尖，雙腳穩踩地面，伸展髖部與膝蓋站起。",
+      "站穩後再進行下一次動作。"
+    ],
+    "gifFile": "0043-qXTaZnJ.gif",
+    "thumbnailFile": "0043-qXTaZnJ.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0739",
+    "name": "腿推",
+    "category": "腿",
+    "equipment": "腿推機",
+    "muscles": "股四頭肌、臀大肌",
+    "steps": [
+      "調整腿推機座椅，背部靠穩椅背，雙腳以肩寬踩在踏板上。",
+      "握住兩側把手，依機器操作方式解除安全卡榫。",
+      "向外推動踏板，直到雙腿接近伸直，但不要鎖住膝蓋。",
+      "彎曲膝蓋，緩慢讓踏板靠近身體，保持臀部與背部貼穩椅墊。",
+      "在可控制的範圍內重複，腳掌全程貼住踏板。",
+      "結束時先確認安全卡榫已固定，再離開座椅。"
+    ],
+    "gifFile": "0739-10Z2DXU.gif",
+    "thumbnailFile": "0739-10Z2DXU.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "補充安全卡榫與背臀貼墊要點。"
+  },
+  {
+    "id": "0085",
+    "name": "羅馬尼亞硬舉",
+    "category": "腿",
+    "equipment": "槓鈴",
+    "muscles": "腿後肌群、臀大肌",
+    "steps": [
+      "雙腳與肩同寬，雙手正握槓鈴，讓槓鈴位於大腿前方。",
+      "收緊核心，保持背部平直，膝蓋微彎。",
+      "臀部向後推，從髖部前折，讓槓鈴沿腿部附近緩慢下降。",
+      "當腿後側出現伸展感，且仍能維持背部穩定時，停止下降。",
+      "將臀部向前帶，站回直立姿勢，收緊臀肌但不要過度後仰。",
+      "控制速度重複動作。"
+    ],
+    "gifFile": "0085-wQ2c4XD.gif",
+    "thumbnailFile": "0085-wQ2c4XD.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "3470",
+    "name": "弓箭步蹲",
+    "category": "腿",
+    "equipment": "徒手",
+    "muscles": "股四頭肌、臀大肌",
+    "steps": [
+      "雙腳與髖同寬站立，雙手扶髖。",
+      "右腳向前跨出一大步，彎曲雙膝，緩慢降低身體。",
+      "讓前膝約彎曲 90 度，膝蓋朝向腳尖，軀幹保持穩定。",
+      "以前腳推地，回到起始站姿。",
+      "換左腳向前跨步，兩側交替進行。"
+    ],
+    "gifFile": "3470-kMzUs9Y.gif",
+    "thumbnailFile": "3470-kMzUs9Y.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0586",
+    "name": "腿彎舉",
+    "category": "腿",
+    "equipment": "俯臥腿彎舉機",
+    "muscles": "腿後肌群",
+    "steps": [
+      "調整機器與重量，俯臥在椅墊上，將滾墊放在腳踝後側附近。",
+      "握住機器把手，保持臀部與上半身貼穩椅墊。",
+      "彎曲膝蓋，將腳跟向臀部方向帶起，避免抬起臀部。",
+      "在收縮位置短暫停頓，感受腿後側出力。",
+      "緩慢伸展膝蓋，將滾墊降回起始位置，重複動作。"
+    ],
+    "gifFile": "0586-17lJ1kr.gif",
+    "thumbnailFile": "0586-17lJ1kr.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0585",
+    "name": "坐姿腿伸展",
+    "category": "腿",
+    "equipment": "腿伸展機",
+    "muscles": "股四頭肌",
+    "steps": [
+      "調整座椅與靠背，使膝關節對齊機器轉軸。",
+      "背部靠穩椅背，將小腿前側放在滾墊後方，握住兩側把手。",
+      "伸展膝蓋，將滾墊向上抬起，避免踢甩重量。",
+      "在雙腿接近伸直時短暫停頓。",
+      "緩慢彎曲膝蓋回到起始位置，重複動作。"
+    ],
+    "gifFile": "0585-my33uHU.gif",
+    "thumbnailFile": "0585-my33uHU.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "1409",
+    "name": "槓鈴臀橋",
+    "category": "腿",
+    "equipment": "槓鈴、運動墊",
+    "muscles": "臀大肌",
+    "steps": [
+      "仰躺在地面，膝蓋彎曲，雙腳踩地。",
+      "將加上護墊的槓鈴放在髖部，雙手握穩槓鈴。",
+      "收緊核心與臀肌，將臀部向上抬起。",
+      "讓肩膀、髖部與膝蓋接近一直線，短暫停頓，避免過度拱腰。",
+      "緩慢將臀部降回地面附近，再重複動作。"
+    ],
+    "gifFile": "1409-qKBpF7I.gif",
+    "thumbnailFile": "1409-qKBpF7I.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "1760",
+    "name": "啞鈴高腳杯深蹲",
+    "category": "腿",
+    "equipment": "啞鈴",
+    "muscles": "股四頭肌、臀大肌",
+    "steps": [
+      "雙腳與肩同寬，雙手將一顆啞鈴直立握在胸前。",
+      "保持胸口穩定、核心收緊，彎曲髖部與膝蓋下蹲。",
+      "讓膝蓋朝向腳尖，下蹲到能維持平衡與背部穩定的位置。",
+      "短暫停頓後，雙腳推地，伸展髖部與膝蓋站起。",
+      "保持啞鈴靠近胸前，控制速度重複動作。"
+    ],
+    "gifFile": "1760-yn8yg1r.gif",
+    "thumbnailFile": "1760-yn8yg1r.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0410",
+    "name": "啞鈴保加利亞分腿蹲",
+    "category": "腿",
+    "equipment": "啞鈴、訓練椅",
+    "muscles": "股四頭肌、臀大肌",
+    "steps": [
+      "背對訓練椅站立，雙手各持一顆啞鈴，將後腳放在椅面上。",
+      "前腳向前站穩，調整距離，讓下蹲時能保持平衡。",
+      "彎曲前膝與髖部，緩慢降低身體，軀幹保持穩定。",
+      "在可控制的深度停下，再以前腳推地站起。",
+      "完成一側後換腿，避免後腳用力蹬起借力。"
+    ],
+    "gifFile": "0410-qx4fgX7.gif",
+    "thumbnailFile": "0410-qx4fgX7.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "1373",
+    "name": "站姿提踵",
+    "category": "腿",
+    "equipment": "徒手",
+    "muscles": "腓腸肌、比目魚肌",
+    "steps": [
+      "雙腳與肩同寬站立，腳尖朝前。",
+      "雙手輕扶牆面或穩固支撐物，保持平衡。",
+      "緩慢抬起腳跟，將身體重量移向前腳掌。",
+      "在最高點短暫停頓，感受小腿出力。",
+      "緩慢降低腳跟回到起始位置，再重複動作。"
+    ],
+    "gifFile": "1373-bJYHBIN.gif",
+    "thumbnailFile": "1373-bJYHBIN.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0294",
+    "name": "啞鈴彎舉",
+    "category": "二三頭",
+    "equipment": "啞鈴",
+    "muscles": "肱二頭肌",
+    "steps": [
+      "站穩，雙手各持一顆啞鈴，掌心朝前，雙臂自然垂下。",
+      "保持上臂靠近身體且不移動，彎曲手肘舉起啞鈴。",
+      "將啞鈴舉至接近肩膀高度，感受二頭肌收縮。",
+      "短暫停頓後，緩慢將啞鈴降回起始位置。",
+      "避免甩動軀幹，控制速度重複動作。"
+    ],
+    "gifFile": "0294-NbVPDMW.gif",
+    "thumbnailFile": "0294-NbVPDMW.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0031",
+    "name": "槓鈴彎舉",
+    "category": "二三頭",
+    "equipment": "槓鈴",
+    "muscles": "肱二頭肌",
+    "steps": [
+      "雙腳與肩同寬，雙手反握槓鈴，掌心朝前。",
+      "保持手肘靠近軀幹，上臂固定，彎曲手肘舉起槓鈴。",
+      "將槓鈴舉至接近肩膀高度，收緊二頭肌。",
+      "短暫停頓後，緩慢將槓鈴降回起始位置。",
+      "避免後仰借力，重複動作。"
+    ],
+    "gifFile": "0031-25GPyDY.gif",
+    "thumbnailFile": "0031-25GPyDY.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "原文混寫啞鈴，統一為槓鈴。"
+  },
+  {
+    "id": "0313",
+    "name": "槌式彎舉",
+    "category": "二三頭",
+    "equipment": "啞鈴",
+    "muscles": "肱肌、肱二頭肌、肱橈肌",
+    "steps": [
+      "站穩，雙手各持一顆啞鈴，掌心朝向身體。",
+      "全程維持掌心相對的握法，手肘靠近軀幹，上臂保持穩定。",
+      "彎曲手肘，將啞鈴舉向肩膀，像握著槌子般保持握姿。",
+      "短暫停頓後，緩慢將啞鈴降回起始位置。",
+      "不要旋轉掌心或甩動身體，重複動作。"
+    ],
+    "gifFile": "0313-slDvUAU.gif",
+    "thumbnailFile": "0313-slDvUAU.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "原文要求旋轉掌心，與槌式及 GIF 不符，改為全程中立握法。"
+  },
+  {
+    "id": "0200",
+    "name": "滑輪三頭下壓",
+    "category": "二三頭",
+    "equipment": "滑輪機、繩索握把",
+    "muscles": "肱三頭肌",
+    "steps": [
+      "將繩索裝在高位滑輪上，面向機器站穩，膝蓋微彎。",
+      "雙手握住繩索兩端，掌心相對，手肘靠近身體兩側。",
+      "保持上臂固定，伸展手肘，將繩索向下壓。",
+      "手臂伸展後短暫停頓，再緩慢彎曲手肘，回到起始位置。",
+      "避免肩膀前後擺動，控制速度重複動作。"
+    ],
+    "gifFile": "0200-dU605di.gif",
+    "thumbnailFile": "0200-dU605di.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0430",
+    "name": "啞鈴過頭三頭伸展",
+    "category": "二三頭",
+    "equipment": "啞鈴",
+    "muscles": "肱三頭肌",
+    "steps": [
+      "雙腳與肩同寬站穩，雙手穩握同一顆啞鈴，舉至頭頂上方。",
+      "收緊核心，上臂保持靠近頭部。",
+      "彎曲手肘，將啞鈴緩慢降至腦後，上臂保持穩定。",
+      "伸展手肘，將啞鈴舉回頭頂上方。",
+      "避免過度拱腰或晃動啞鈴，控制速度重複動作。"
+    ],
+    "gifFile": "0430-PdmaD0N.gif",
+    "thumbnailFile": "0430-PdmaD0N.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 GIF 改為雙手持同一顆啞鈴。"
+  },
+  {
+    "id": "0070",
+    "name": "槓鈴牧師椅彎舉",
+    "category": "二三頭",
+    "equipment": "槓鈴、牧師椅",
+    "muscles": "肱二頭肌",
+    "steps": [
+      "坐在牧師椅上，上臂放穩在斜墊上，胸部靠近支撐墊。",
+      "雙手反握槓鈴，掌心朝上，手腕保持穩定。",
+      "固定上臂，彎曲手肘，將槓鈴舉向肩膀。",
+      "感受二頭肌收縮後短暫停頓。",
+      "緩慢下降，避免手肘突然打直，再重複動作。"
+    ],
+    "gifFile": "0070-qOgPVf6.gif",
+    "thumbnailFile": "0070-qOgPVf6.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0297",
+    "name": "啞鈴集中彎舉",
+    "category": "二三頭",
+    "equipment": "啞鈴、訓練椅",
+    "muscles": "肱二頭肌",
+    "steps": [
+      "坐在訓練椅上，雙腿分開，一手持啞鈴。",
+      "將持鈴側上臂靠在大腿內側，掌心朝上。",
+      "固定上臂，彎曲手肘，將啞鈴舉向肩膀。",
+      "在最高點短暫停頓，再緩慢降低啞鈴。",
+      "保持軀幹穩定，完成後換手進行。"
+    ],
+    "gifFile": "0297-gvsWLQw.gif",
+    "thumbnailFile": "0297-gvsWLQw.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0315",
+    "name": "上斜啞鈴彎舉",
+    "category": "二三頭",
+    "equipment": "啞鈴、上斜訓練椅",
+    "muscles": "肱二頭肌",
+    "steps": [
+      "坐在上斜訓練椅上，背部靠穩，雙手各持一顆啞鈴。",
+      "雙臂自然向下伸展，掌心朝前。",
+      "保持上臂固定，彎曲手肘，將啞鈴舉向肩膀。",
+      "在收縮位置短暫停頓，再緩慢放下啞鈴。",
+      "避免肩膀向前帶動或甩動手臂，重複動作。"
+    ],
+    "gifFile": "0315-F3xgbjF.gif",
+    "thumbnailFile": "0315-F3xgbjF.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0333",
+    "name": "啞鈴三頭後踢",
+    "category": "二三頭",
+    "equipment": "啞鈴、訓練椅",
+    "muscles": "肱三頭肌",
+    "steps": [
+      "將一側手掌與膝蓋放在訓練椅上，另一腳踩穩地面。",
+      "另一手握啞鈴，保持背部平直，上臂貼近軀幹，手肘約彎曲 90 度。",
+      "固定上臂，伸展手肘，將啞鈴往後方帶。",
+      "短暫停頓後，緩慢彎曲手肘回到起始位置。",
+      "避免甩動啞鈴，完成一側後換邊進行。"
+    ],
+    "gifFile": "0333-W6PxUkg.gif",
+    "thumbnailFile": "0333-W6PxUkg.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "原文為站姿雙手，GIF 為單手與膝蓋靠椅支撐的單臂版本，依示範校正。"
+  },
+  {
+    "id": "0351",
+    "name": "仰臥啞鈴三頭伸展",
+    "category": "二三頭",
+    "equipment": "啞鈴、平板訓練椅",
+    "muscles": "肱三頭肌",
+    "steps": [
+      "仰躺在平板訓練椅上，雙腳踩地，雙手各持一顆啞鈴。",
+      "雙臂伸向胸部上方，掌心相對。",
+      "保持上臂穩定，彎曲手肘，將啞鈴緩慢降向額頭兩側。",
+      "短暫停頓，再伸展手肘，舉回起始位置。",
+      "控制速度，保持啞鈴與頭部的安全距離，重複動作。"
+    ],
+    "gifFile": "0351-mpKZGWz.gif",
+    "thumbnailFile": "0351-mpKZGWz.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0464",
+    "name": "扭轉棒式",
+    "category": "核心",
+    "equipment": "徒手",
+    "muscles": "腹肌、腹斜肌",
+    "steps": [
+      "以前臂與腳尖支撐身體，手肘位於肩膀下方，身體保持一直線。",
+      "收緊核心與臀部，維持穩定，避免腰部下塌。",
+      "將軀幹轉向一側，以另一側前臂支撐，將上方手臂伸向天花板。",
+      "短暫停頓後，控制身體轉回前臂棒式。",
+      "換另一側進行，交替重複，避免快速甩轉身體。"
+    ],
+    "gifFile": "0464-CosupLu.gif",
+    "thumbnailFile": "0464-CosupLu.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 GIF 將高棒式改為前臂支撐。"
+  },
+  {
+    "id": "0274",
+    "name": "捲腹",
+    "category": "核心",
+    "equipment": "徒手、運動墊",
+    "muscles": "腹直肌",
+    "steps": [
+      "仰躺在地面，膝蓋彎曲，雙腳踩地。",
+      "雙手輕放在頭後，手肘向外，不要拉扯頭頸。",
+      "收緊腹肌，將肩膀與上背部稍微捲離地面。",
+      "在最高點短暫停頓，再緩慢將肩膀放回地面。",
+      "保持動作平順，以腹部出力重複動作。"
+    ],
+    "gifFile": "0274-TFqbd8t.gif",
+    "thumbnailFile": "0274-TFqbd8t.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0620",
+    "name": "仰臥抬腿",
+    "category": "核心",
+    "equipment": "平板訓練椅",
+    "muscles": "腹肌、髖屈肌群",
+    "steps": [
+      "仰躺在平板訓練椅上，背部貼穩椅面，雙手扶穩椅面或放在臀部下方支撐。",
+      "雙腿併攏伸展，收緊核心。",
+      "緩慢將雙腿抬向上方，保持動作穩定。",
+      "短暫停頓後，緩慢降低雙腿。",
+      "只降到能維持腰背穩定的位置，避免拱腰，重複動作。"
+    ],
+    "gifFile": "0620-WhuFnR7.gif",
+    "thumbnailFile": "0620-WhuFnR7.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0687",
+    "name": "俄羅斯轉體",
+    "category": "核心",
+    "equipment": "徒手、運動墊",
+    "muscles": "腹斜肌",
+    "steps": [
+      "坐在地面，膝蓋彎曲，雙腳輕踩地面。",
+      "軀幹稍微後傾，保持背部平直並收緊核心。",
+      "雙手放在胸前，緩慢將軀幹轉向右側。",
+      "短暫停頓，再轉向左側，讓雙手跟隨軀幹移動。",
+      "兩側交替進行，維持骨盆穩定，避免快速甩動。"
+    ],
+    "gifFile": "0687-XVDdcoj.gif",
+    "thumbnailFile": "0687-XVDdcoj.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 GIF 使用雙腳接觸地面的徒手版本。"
+  },
+  {
+    "id": "0276",
+    "name": "死蟲式",
+    "category": "核心",
+    "equipment": "徒手、運動墊",
+    "muscles": "腹肌",
+    "steps": [
+      "仰躺在地面，雙臂伸向天花板。",
+      "抬起雙腿，讓髖部與膝蓋約呈 90 度。",
+      "收緊核心，讓下背部輕貼地面。",
+      "緩慢將右臂向頭頂方向伸展，同時將左腿向前伸直，懸停在地面上方。",
+      "保持腰背穩定，再將手腳收回起始位置。",
+      "換左臂與右腿伸展，兩側交替進行。"
+    ],
+    "gifFile": "0276-iny3m5y.gif",
+    "thumbnailFile": "0276-iny3m5y.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依中文原文整理為繁體中文，統一術語並補足穩定與控制動作的用語。"
+  },
+  {
+    "id": "0262",
+    "name": "交叉捲腹",
+    "category": "核心",
+    "equipment": "徒手、運動墊",
+    "muscles": "腹直肌、腹斜肌",
+    "steps": [
+      "仰躺在地面，膝蓋彎曲，雙腳踩地。",
+      "雙手輕放在頭後，不要拉扯頭頸。",
+      "收緊腹部，將上背捲離地面，同時抬起左膝並轉動軀幹，讓右肘朝向左膝。",
+      "短暫停頓後，緩慢將上背放回地面。",
+      "換左肘朝向抬起的右膝，左右交替進行。"
+    ],
+    "gifFile": "0262-rbu5UUb.gif",
+    "thumbnailFile": "0262-rbu5UUb.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0872",
+    "name": "反向捲腹",
+    "category": "核心",
+    "equipment": "徒手、運動墊",
+    "muscles": "腹直肌",
+    "steps": [
+      "仰躺在地面，雙臂放在身體兩側。",
+      "彎曲膝蓋，抬起雙腳，讓大腿接近垂直地面。",
+      "收緊腹肌，將骨盆輕輕捲起，讓膝蓋靠近胸部。",
+      "在最高點短暫停頓，避免用甩腿帶動。",
+      "緩慢將骨盆放回地面，再重複動作。"
+    ],
+    "gifFile": "0872-nCU1Ekp.gif",
+    "thumbnailFile": "0872-nCU1Ekp.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  },
+  {
+    "id": "0705",
+    "name": "側棒式抬臀",
+    "category": "核心",
+    "equipment": "徒手、運動墊",
+    "muscles": "腹斜肌",
+    "steps": [
+      "側躺在地面，雙腿伸展並上下疊放。",
+      "下方前臂撐地，手肘放在肩膀正下方。",
+      "收緊核心，將臀部抬離地面，讓頭部、軀幹與腿部保持一直線。",
+      "短暫停頓後緩慢降低臀部，再次抬起，保持肩膀穩定。",
+      "控制速度重複動作，完成後換另一側進行。"
+    ],
+    "gifFile": "0705-RKjH6Lt.gif",
+    "thumbnailFile": "0705-RKjH6Lt.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "GIF 為側棒式反覆抬臀，原文靜態維持改為與示範一致的動態版本。"
+  },
+  {
+    "id": "0472",
+    "name": "懸垂抬膝",
+    "category": "核心",
+    "equipment": "單槓",
+    "muscles": "腹肌、髖屈肌群",
+    "steps": [
+      "雙手正握單槓，雙臂伸展，身體自然懸垂。",
+      "收緊核心，先穩定身體，避免前後擺動。",
+      "彎曲膝蓋，將雙膝向前上方抬起。",
+      "抬至可控制的高度後短暫停頓，保持肩膀穩定。",
+      "緩慢放下雙腿，避免甩動，重複動作。"
+    ],
+    "gifFile": "0472-I3tsCnC.gif",
+    "thumbnailFile": "0472-I3tsCnC.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "資料名稱及原文描述直腿，但 GIF 明顯為屈膝版本，改為懸垂抬膝。"
+  },
+  {
+    "id": "0630",
+    "name": "登山者",
+    "category": "核心",
+    "equipment": "徒手、運動墊",
+    "muscles": "腹肌、髖屈肌群",
+    "steps": [
+      "雙手撐地，手掌位於肩膀下方，雙腿向後伸直。",
+      "收緊核心，保持頭部、軀幹與腿部接近一直線。",
+      "將右膝帶向胸前，再將右腳伸回，同時換左膝向前。",
+      "左右交替，從可控制的速度開始，維持臀部穩定。",
+      "保持均勻呼吸，避免腰部下塌。"
+    ],
+    "gifFile": "0630-RJgzwny.gif",
+    "thumbnailFile": "0630-RJgzwny.jpg",
+    "attribution": "© Gym visual — https://gymvisual.com/",
+    "translationNote": "依 instructions.zh 翻譯為繁體中文，整理穩定姿勢與控制速度的用語，並對照 GIF 校正。"
+  }
+]

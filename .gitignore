@@ -1,0 +1,15 @@
+.DS_Store
+DerivedData/
+build/
+*.xcuserstate
+xcuserdata/
+*.xcarchive
+*.ipa
+.env
+.env.*
+!.env.example
+# Local design iterations and QA notes
+docs/ui/
+docs/verification.md
+docs/generated-assets.md
+design-qa.md
