@@ -27,6 +27,38 @@ import UserNotifications
 
     @MainActor private func runChecks() async {
         // The harness uses its own bundle ID/container; no user app data is touched.
+        do {
+            let library = try ExerciseLibrary.bundled.get()
+            for exercise in library.exercises {
+                guard let url = exercise.gifURL else { write("FAIL missing GIF"); return }
+                let animation = try GIFAnimation(url: url)
+                guard animation.frames.count > 1, animation.durations.allSatisfy({ $0 > 0 }) else {
+                    write("FAIL invalid GIF frames"); return
+                }
+            }
+            guard let window = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first,
+                  let url = library.exercises.first?.gifURL else { write("FAIL GIF test window"); return }
+            let animation = try GIFAnimation(url: url)
+            let preview = GIFImageView(animation: animation)
+            preview.frame = CGRect(x: 20, y: 80, width: 180, height: 180)
+            window.addSubview(preview)
+            let initial = preview.image?.pngData()
+            preview.setPlaying(true)
+            var advanced = false
+            for _ in 0..<(Int(ceil(animation.durations[0] / 0.15)) + 3) {
+                try await Task.sleep(for: .milliseconds(150))
+                advanced = advanced || preview.image?.pngData() != initial
+            }
+            guard advanced else { preview.removeFromSuperview(); write("FAIL GIF playback"); return }
+            preview.setPlaying(false)
+            let paused = preview.image?.pngData()
+            try await Task.sleep(for: .milliseconds(300))
+            guard preview.image?.pngData() == paused else { write("FAIL GIF pause"); return }
+            preview.removeFromSuperview()
+            preview.setPlaying(true)
+            try await Task.sleep(for: .milliseconds(300))
+            guard preview.image?.pngData() == paused else { write("FAIL detached GIF playback"); return }
+        } catch { write("FAIL GIF decode: \(error)"); return }
         var plan = WorkoutPlan(name: "胸背訓練", restSeconds: 5)
         var entry = PlanExercise(exerciseID: "0025")
         entry.sets[0] = WorkoutSet(weight: "40", repetitions: "10", completed: true)
@@ -66,7 +98,7 @@ import UserNotifications
         rest.setScene(.active)
         guard rest.remaining < before else { write("FAIL deadline resumption"); return }
         rest.cancel()
-        write("PASS foreground expiry, WAV playback call, cancellation, pending request cleanup, timer replacement, background deadline resumption")
+        write("PASS all 60 GIFs decoded, GIF playback/pause/detachment, foreground expiry, WAV playback call, cancellation, pending request cleanup, timer replacement, background deadline resumption")
         if ProcessInfo.processInfo.environment["QA_SCREEN"] == "active" { rest.start(seconds: 60) }
     }
 

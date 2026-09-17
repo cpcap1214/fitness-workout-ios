@@ -3,6 +3,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var favorites = FavoriteExercises()
     @State private var selectedTab = "首頁"
+    @State private var showingWorkout = false
+    @State private var templatePath: [UUID] = []
     @State private var plans = WorkoutPlanStore()
     @State private var rest = RestTimer()
     @Environment(\.scenePhase) private var scenePhase
@@ -18,20 +20,35 @@ struct ContentView: View {
                             navigationRoot(library: library) { CategorySelection(library: library) }
                         }
                         Tab("健身計劃", systemImage: "list.bullet.clipboard", value: "健身計劃") {
-                            WorkoutPlansView(library: library)
+                            WorkoutPlansView(library: library, onOpenWorkout: { showingWorkout = true }, navigationPath: $templatePath)
+                        }
+                        Tab("運動紀錄", systemImage: "clock.arrow.circlepath", value: "運動紀錄") {
+                            NavigationStack { WorkoutHistoryView(library: library) }
                         }
                         Tab("收藏", systemImage: "heart", value: "收藏") {
                             navigationRoot(library: library) { FavoritesView(library: library) }
                         }
                     }
+                    .modifier(WorkoutAccessory(active: plans.archive.activeWorkout) { showingWorkout = true })
+                    .fullScreenCover(isPresented: $showingWorkout) {
+                        if let active = plans.archive.activeWorkout {
+                            ActiveWorkoutView(workout: Binding(
+                                get: { plans.archive.activeWorkout ?? active },
+                                set: { if plans.archive.activeWorkout?.id == active.id { plans.archive.activeWorkout = $0 } }
+                            ), library: library, onFinished: { selectedTab = "運動紀錄" })
+                        }
+                    }
                 case .failure:
-                    ContentUnavailableView("無法讀取動作", systemImage: "exclamationmark.triangle", description: Text("請重新安裝 App 後再試一次。"))
+                    ContentUnavailableView("無法讀取動作", systemImage: "exclamationmark.triangle", description: Text("請重新開啟 App 後再試一次。"))
                 }
             }
         }
         .environment(favorites)
         .environment(plans)
         .environment(rest)
+        .onChange(of: plans.archive.activeWorkout?.id) { _, id in
+            if id == nil { showingWorkout = false }
+        }
         .onChange(of: scenePhase) { _, phase in rest.setScene(phase) }
         .tint(.primary)
         .preferredColorScheme(.light)
@@ -54,11 +71,6 @@ private struct CategorySelection: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                Text("選擇訓練部位")
-                    .font(.system(.title, design: .default).weight(.bold))
-                    .foregroundStyle(.primary)
-                    .accessibilityAddTraits(.isHeader)
-                    .padding(.top, 12)
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 14), count: typeSize.isAccessibilitySize ? 1 : 2), spacing: 14) {
                     ForEach(WorkoutCategory.all) { category in
                         NavigationLink(value: category) {
@@ -74,9 +86,9 @@ private struct CategorySelection: View {
                                     .padding(.bottom, 15)
                             }
                             .background(Color(.secondarySystemGroupedBackground))
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(Color.black.opacity(0.06)))
-                            .shadow(color: .black.opacity(0.06), radius: 10, y: 4)
+                            .clipShape(RoundedRectangle(cornerRadius: AppDesign.cardRadius))
+                            .overlay(RoundedRectangle(cornerRadius: AppDesign.cardRadius).strokeBorder(Color.black.opacity(0.06)))
+
                         }
                         .buttonStyle(.plain)
                         .accessibilityLabel(category.name)
@@ -84,11 +96,12 @@ private struct CategorySelection: View {
                     }
                 }
             }
-            .padding(.horizontal, 22)
+            .padding(.horizontal, AppDesign.pagePadding)
             .padding(.bottom, 24)
         }
         .background { GymBackground() }
-        .toolbar(.hidden, for: .navigationBar)
+        .navigationTitle("健身動作")
+        .toolbar(.visible, for: .navigationBar)
     }
 }
 
@@ -140,15 +153,14 @@ private struct CategoryExercises: View {
                     }
                     .padding(.top, 16)
                     if exercises.isEmpty {
-                        ContentUnavailableView("沒有符合的動作", systemImage: "line.3.horizontal.decrease", description: Text("選擇其他器材以查看動作。"))
+                        ContentUnavailableView("沒有符合的動作", systemImage: "line.3.horizontal.decrease")
                             .padding(.vertical, 32)
                     } else {
-                        LazyVStack(spacing: 0) {
+                        LazyVStack(spacing: 12) {
                             ForEach(exercises) { exercise in
                                 NavigationLink(value: exercise) { ExerciseRow(exercise: exercise) }
                                     .buttonStyle(.plain)
                                     .accessibilityIdentifier("exercise-\(exercise.id)")
-                                if exercise.id != exercises.last?.id { Divider().padding(.leading, 128) }
                             }
                         }
                         .padding(.horizontal, 20)
@@ -160,11 +172,11 @@ private struct CategoryExercises: View {
             }
         }
         .background { GymBackground() }
-        .ignoresSafeArea(edges: .top)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.visible, for: .navigationBar)
-        .toolbarBackground(.hidden, for: .navigationBar)
-        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbarBackground(.white, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbarColorScheme(.light, for: .navigationBar)
         .toolbar(.hidden, for: .tabBar)
     }
 }
@@ -174,32 +186,36 @@ private struct ExerciseRow: View {
     var body: some View {
         HStack(spacing: 16) {
             ExerciseThumbnail(exercise: exercise)
-                .frame(width: 90, height: 82)
+                .frame(width: 76, height: 76)
                 .background(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-            VStack(alignment: .leading, spacing: 6) {
-                Text(exercise.name)
-                    .font(.body.weight(.bold))
-                    .foregroundStyle(.primary)
-                    .fixedSize(horizontal: false, vertical: true)
-                Text(exercise.level)
-                    .font(.caption2.weight(.medium))
-                    .foregroundStyle(exercise.levelColor)
-                    .padding(.horizontal, 7)
-                    .padding(.vertical, 3)
-                    .background(exercise.levelColor.opacity(0.12), in: RoundedRectangle(cornerRadius: 5))
-            }
+                .clipShape(RoundedRectangle(cornerRadius: AppDesign.imageRadius))
+            Text(exercise.name)
+                .font(.body.weight(.semibold))
+                .foregroundStyle(.primary)
+                .fixedSize(horizontal: false, vertical: true)
             Spacer(minLength: 0)
             Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
         }
-        .padding(.vertical, 12)
+        .appCard()
         .contentShape(Rectangle())
     }
 }
 
-private struct ExerciseThumbnail: View {
+struct ExerciseThumbnail: View {
     let exercise: Exercise
     var body: some View {
+        AsyncImage(url: exercise.remoteThumbnailURL) { phase in
+            if let image = phase.image {
+                image.resizable().scaledToFit()
+                    .accessibilityIdentifier("remote-thumbnail-\(exercise.id)")
+            } else {
+                localImage
+            }
+        }
+        .accessibilityHidden(true)
+    }
+
+    @ViewBuilder private var localImage: some View {
         if let url = exercise.thumbnailURL, let image = UIImage(contentsOfFile: url.path) {
             Image(uiImage: image).resizable().scaledToFit().accessibilityHidden(true)
         }
@@ -211,10 +227,10 @@ private struct FavoritesView: View {
     @Environment(FavoriteExercises.self) private var favorites
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
+            LazyVStack(alignment: .leading, spacing: 12) {
                 let items = library.exercises.filter { favorites.contains($0) }
                 if items.isEmpty {
-                    ContentUnavailableView("尚未收藏動作", systemImage: "heart", description: Text("在動作頁點選愛心，即可加入收藏。"))
+                    ContentUnavailableView("尚未收藏動作", systemImage: "heart")
                         .frame(maxWidth: .infinity)
                         .padding(.top, 80)
                 } else {
@@ -222,11 +238,10 @@ private struct FavoritesView: View {
                         NavigationLink(value: exercise) { ExerciseRow(exercise: exercise) }
                             .buttonStyle(.plain)
                             .accessibilityIdentifier("exercise-\(exercise.id)")
-                        Divider()
                     }
                 }
             }
-            .padding(.horizontal, 22)
+            .padding(.horizontal, AppDesign.pagePadding)
         }
         .navigationTitle("收藏")
         .toolbar(.visible, for: .navigationBar)
@@ -252,55 +267,57 @@ struct ExerciseDetail: View {
                         .font(.title.bold())
                         .fixedSize(horizontal: false, vertical: true)
                         .accessibilityAddTraits(.isHeader)
-                    MuscleTags(exercise: exercise)
                 }
                 VStack(spacing: 8) {
-                    HStack(spacing: 8) {
-                        BundledArtwork(name: exercise.workoutCategory.asset)
-                            .scaledToFill()
-                            .frame(width: 110, height: 218)
-                            .clipped()
+                    GeometryReader { geometry in
+                        HStack(spacing: 8) {
+                            BundledArtwork(name: exercise.workoutCategory.asset)
+                                .scaledToFill()
+                                .frame(width: geometry.size.width * 0.32, height: 218)
+                                .clipped()
+                                .background(.white)
+                                .accessibilityLabel("\(exercise.category)肌群示意")
+                            ZStack(alignment: .bottomTrailing) {
+                                Group {
+                                    if let animation {
+                                        GIFPlayer(animation: animation, isPlaying: isPlaying && isVisible && scenePhase == .active)
+                                            .frame(width: geometry.size.width * 0.68 - 8, height: min(218, geometry.size.width * 0.68 - 8))
+                                            .accessibilityElement()
+                                            .accessibilityLabel("\(exercise.name)動作示範")
+                                    } else if failed {
+                                        Text("無法載入示範").foregroundStyle(.black)
+                                    } else {
+                                        ProgressView()
+                                    }
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                if animation != nil {
+                                    Button { isPlaying.toggle() } label: {
+                                        Image(systemName: isPlaying ? "pause.fill" : "play.fill")
+                                            .font(.system(size: 18, weight: .semibold))
+                                            .foregroundStyle(.white)
+                                            .frame(width: 46, height: 46)
+                                            .background(Color.black.opacity(0.8), in: Circle())
+                                    }
+                                    .padding(10)
+                                    .accessibilityLabel(isPlaying ? "暫停" : "播放")
+                                    .accessibilityIdentifier("playback-toggle")
+                                }
+                            }
                             .background(.white)
-                            .accessibilityLabel("\(exercise.category)肌群示意")
-                        ZStack(alignment: .bottomTrailing) {
-                            Group {
-                                if let animation {
-                                    GIFPlayer(animation: animation, isPlaying: isPlaying && isVisible && scenePhase == .active)
-                                        .frame(width: 180, height: 180)
-                                        .accessibilityElement()
-                                        .accessibilityLabel("\(exercise.name)動作示範")
-                                } else if failed {
-                                    Text("無法載入示範").foregroundStyle(.black)
-                                } else {
-                                    ProgressView()
-                                }
-                            }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            if animation != nil {
-                                Button { isPlaying.toggle() } label: {
-                                    Image(systemName: isPlaying ? "pause.fill" : "play.fill")
-                                        .font(.system(size: 18, weight: .semibold))
-                                        .foregroundStyle(.white)
-                                        .frame(width: 46, height: 46)
-                                        .background(Color.black.opacity(0.8), in: Circle())
-                                }
-                                .padding(10)
-                                .accessibilityLabel(isPlaying ? "暫停" : "播放")
-                                .accessibilityIdentifier("playback-toggle")
-                            }
+                            .clipShape(RoundedRectangle(cornerRadius: AppDesign.imageRadius))
                         }
-                        .background(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                     .frame(height: 218)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .clipShape(RoundedRectangle(cornerRadius: AppDesign.imageRadius))
                 }
-                ViewThatFits(in: .horizontal) {
-                    HStack(alignment: .top, spacing: 8) { metadata }
-                    VStack(alignment: .leading, spacing: 8) { metadata }
-                }
+                VStack(spacing: 14) {
+                    LabeledContent("器材", value: exercise.equipment)
+                    LabeledContent("主要肌群", value: exercise.muscles)
+                    LabeledContent("難度", value: exercise.level)
+                }.font(.subheadline).appCard()
                 VStack(alignment: .leading, spacing: 18) {
-                    Text("動作步驟").font(.title3.bold()).accessibilityAddTraits(.isHeader)
+                    Text("動作步驟").font(.title2.bold()).accessibilityAddTraits(.isHeader)
                     ForEach(Array(exercise.steps.enumerated()), id: \.offset) { index, step in
                         HStack(alignment: .top, spacing: 12) {
                             Text("\(index + 1)")
@@ -319,7 +336,7 @@ struct ExerciseDetail: View {
                     }
                 }
             }
-            .padding(.horizontal, 22)
+            .padding(.horizontal, AppDesign.pagePadding)
             .padding(.top, 8)
             .padding(.bottom, 30)
         }
@@ -342,33 +359,6 @@ struct ExerciseDetail: View {
         .onChange(of: reduceMotion) { _, reduced in if reduced { isPlaying = false } }
     }
 
-    private var metadata: some View {
-        Group {
-            DetailMetric(symbol: "chart.bar", title: "難度", value: exercise.level)
-            DetailMetric(symbol: "dumbbell", title: "器材", value: exercise.equipment)
-            DetailMetric(symbol: "figure.strengthtraining.traditional", title: "目標", value: exercise.goal)
-        }
-    }
-}
-
-private struct DetailMetric: View {
-    let symbol: String
-    let title: String
-    let value: String
-    var body: some View {
-        HStack(alignment: .top, spacing: 7) {
-            Image(systemName: symbol).font(.subheadline).padding(.top, 2)
-            VStack(alignment: .leading, spacing: 3) {
-                Text(title).foregroundStyle(.secondary)
-                Text(value).fontWeight(.medium).fixedSize(horizontal: false, vertical: true)
-            }
-            .font(.caption)
-        }
-        .frame(maxWidth: .infinity, minHeight: 52, alignment: .topLeading)
-        .padding(10)
-        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
-        .accessibilityElement(children: .combine)
-    }
 }
 
 #Preview { ContentView() }

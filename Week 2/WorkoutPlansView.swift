@@ -2,74 +2,62 @@ import SwiftUI
 
 struct WorkoutPlansView: View {
     let library: ExerciseLibrary
+    var onOpenWorkout: () -> Void = {}
+    var navigationPath: Binding<[UUID]>? = nil
+    @State private var localPath: [UUID] = []
     @Environment(WorkoutPlanStore.self) private var store
     @Environment(\.dynamicTypeSize) private var typeSize
     @State private var editingTemplate: WorkoutPlan?
-    @State private var showingWorkout = false
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: navigationPath ?? $localPath) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    if let active = store.archive.activeWorkout {
-                        Button { showingWorkout = true } label: {
-                            HStack {
-                                Image(systemName: "play.fill")
-                                Text("繼續運動").fontWeight(.bold)
-                                Spacer()
-                                WorkoutClock(startedAt: active.startedAt, compact: true)
-                            }
-                            .padding(20).foregroundStyle(.white)
-                            .background(.black, in: RoundedRectangle(cornerRadius: 22))
-                        }
-                        .accessibilityIdentifier("resume-workout")
-                    }
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 14), count: typeSize.isAccessibilitySize ? 1 : 2), spacing: 14) {
-                        ForEach(Array(store.archive.plans.enumerated()), id: \.element.id) { index, plan in
-                            NavigationLink {
-                                TemplateOverview(templateID: plan.id, library: library, begin: { showingWorkout = true })
-                            } label: { TemplateCard(plan: plan, library: library, colorIndex: index) }
-                                .buttonStyle(.plain)
-                                .accessibilityIdentifier("template-\(plan.id)")
-                        }
-                        Button { editingTemplate = WorkoutPlan() } label: {
-                            RoundedRectangle(cornerRadius: 24)
-                                .fill(Color(.systemGray6))
-                                .aspectRatio(1, contentMode: .fit)
-                                .overlay {
-                                    VStack(spacing: 12) {
-                                        Image(systemName: "plus").font(.system(size: 30, weight: .light))
-                                        Text("建立模板").font(.headline)
-                                    }.foregroundStyle(.primary)
-                                }
-                        }
-                        .buttonStyle(.plain).accessibilityIdentifier("create-template")
-                    }
+                    templateSection("我的模板", plans: store.archive.plans.filter { $0.presetID == nil }, allowsCreation: true)
+                    Divider().padding(.vertical, 4)
+                    templateSection("預設模板", plans: store.archive.plans.filter { $0.presetID != nil }, allowsCreation: false)
                     if let error = store.errorMessage { Text(error).foregroundStyle(.red) }
                 }
                 .padding(20)
             }
             .background(.white)
             .navigationTitle("健身計劃")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink { WorkoutHistoryView(library: library) } label: {
-                        Image(systemName: "clock.arrow.circlepath")
-                    }.accessibilityLabel("訓練紀錄")
-                }
+            .navigationDestination(for: UUID.self) { id in
+                TemplateOverview(templateID: id, library: library, begin: onOpenWorkout)
             }
             .sheet(item: $editingTemplate) { template in TemplateEditor(initial: template, library: library) }
-            .fullScreenCover(isPresented: $showingWorkout) {
-                if let active = store.archive.activeWorkout {
-                    ActiveWorkoutView(workout: Binding(
-                        get: { store.archive.activeWorkout ?? active },
-                        set: { if store.archive.activeWorkout?.id == active.id { store.archive.activeWorkout = $0 } }
-                    ), library: library)
-                }
-            }
-            .onChange(of: store.archive.activeWorkout?.id) { _, id in if id == nil { showingWorkout = false } }
+
         }
     }
+    private func templateSection(_ title: String, plans: [WorkoutPlan], allowsCreation: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text(title).font(.title2.bold()).accessibilityAddTraits(.isHeader)
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 14), count: typeSize.isAccessibilitySize ? 1 : 2), spacing: 14) {
+                ForEach(Array(plans.enumerated()), id: \.element.id) { index, plan in
+                    NavigationLink(value: plan.id) {
+                        TemplateCard(plan: plan, library: library, colorIndex: index)
+                    }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("template-\(plan.id)")
+                }
+                if allowsCreation {
+                    Button { editingTemplate = WorkoutPlan() } label: {
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(Color(.systemGray6))
+                            .aspectRatio(1, contentMode: .fit)
+                            .overlay {
+                                VStack(spacing: 12) {
+                                    Image(systemName: "plus").font(.system(size: 30, weight: .light))
+                                    Text("建立模板").font(.headline)
+                                }.foregroundStyle(.primary)
+                            }
+                    }
+                    .buttonStyle(.plain).accessibilityIdentifier("create-template")
+                }
+            }
+        }
+    }
+
 }
 
 struct TemplateCard: View {
@@ -140,14 +128,33 @@ struct TemplateOverview: View {
                 List {
                     Section {
                         ForEach(template.exercises) { item in
-                            HStack {
-                                Text(library.exercises.first(where: { $0.id == item.exerciseID })?.name ?? "動作")
-                                Spacer()
-                                Text("\(item.sets.count) 組").foregroundStyle(.secondary)
+                            let exercise = library.exercises.first { $0.id == item.exerciseID }
+                            HStack(spacing: 14) {
+                                if let exercise {
+                                    ExerciseThumbnail(exercise: exercise)
+                                        .frame(width: 76, height: 76)
+                                        .background(.white, in: RoundedRectangle(cornerRadius: 14))
+                                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                                }
+                                Text(exercise?.name ?? "動作")
+                                    .font(.body.weight(.semibold))
+                                    .fixedSize(horizontal: false, vertical: true)
+                                Spacer(minLength: 0)
+                                Text("\(item.sets.count) 組")
+                                    .font(.subheadline.monospacedDigit())
+                                    .foregroundStyle(.secondary)
+                                    .fixedSize()
                             }
+                            .padding(14)
+                            .background(AppDesign.surface, in: RoundedRectangle(cornerRadius: AppDesign.cardRadius))
+                            .accessibilityElement(children: .combine)
+                            .editorRow()
                         }
                     }
-                    Section { LabeledContent("組間休息", value: "\(template.restSeconds) 秒") }
+                    Section {
+                        LabeledContent("組間休息", value: "\(template.restSeconds) 秒")
+                            .font(.subheadline).appCard().editorRow()
+                    }
                     if let error = store.errorMessage { Text(error).foregroundStyle(.red) }
                 }
                 .scrollContentBackground(.hidden).background(.white)
@@ -159,13 +166,11 @@ struct TemplateOverview: View {
                         else if store.startWorkout(templateID: templateID) { rest.cancel(); begin() }
                     } label: {
                         Label(store.archive.activeWorkout == nil ? "開始運動" : "繼續運動", systemImage: "play.fill")
-                            .font(.headline).frame(maxWidth: .infinity).padding(18)
                     }
-                    .buttonStyle(.plain).foregroundStyle(.white)
-                    .background(.black, in: RoundedRectangle(cornerRadius: 20))
+                    .buttonStyle(PrimaryActionStyle())
                     .disabled(template.exercises.isEmpty && store.archive.activeWorkout == nil)
                     .opacity(template.exercises.isEmpty && store.archive.activeWorkout == nil ? 0.4 : 1)
-                    .padding(20).background(.white)
+                    .actionBar()
                     .accessibilityIdentifier("start-workout")
                 }
                 .toolbar {
@@ -194,52 +199,115 @@ struct TemplateEditor: View {
     let library: ExerciseLibrary
     @Environment(WorkoutPlanStore.self) private var store
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var typeSize
     @State private var selecting = false
     @State private var editMode: EditMode = .inactive
+    @FocusState private var editingName: Bool
 
     init(initial: WorkoutPlan, library: ExerciseLibrary) {
         _draft = State(initialValue: initial)
         self.library = library
     }
 
+    private var canSave: Bool {
+        !draft.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !draft.exercises.isEmpty
+    }
+
     var body: some View {
         NavigationStack {
             List {
-                Section("模板名稱") { TextField("模板名稱", text: $draft.name).accessibilityIdentifier("template-name") }
-                Section("動作") {
+                Section {
+                    TextField("輸入模板名稱", text: $draft.name)
+                        .font(.title3.weight(.semibold))
+                        .focused($editingName)
+                        .submitLabel(.done)
+                        .padding(20)
+                        .background(AppDesign.surface, in: RoundedRectangle(cornerRadius: AppDesign.cardRadius))
+                        .accessibilityIdentifier("template-name")
+                        .editorRow()
+                } header: { sectionTitle("模板名稱") }
+                Section {
+                    VStack(spacing: 18) {
+                        HStack(spacing: 12) {
+                            Image(systemName: "timer")
+                                .font(.title2).foregroundStyle(AppDesign.accent)
+                                .frame(width: 44, height: 44)
+                                .background(.white, in: RoundedRectangle(cornerRadius: 14))
+                            Text("\(draft.restSeconds) 秒")
+                                .font(.title3.weight(.semibold)).monospacedDigit()
+                            Spacer(minLength: 4)
+                            Stepper("休息秒數", value: $draft.restSeconds, in: 5...600, step: 5)
+                                .labelsHidden()
+                                .accessibilityValue("\(draft.restSeconds) 秒")
+                        }
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: typeSize.isAccessibilitySize ? 2 : 4), spacing: 8) {
+                            ForEach([30, 60, 90, 120], id: \.self) { seconds in
+                                Button { draft.restSeconds = seconds } label: {
+                                    Text("\(seconds) 秒").font(.subheadline.weight(.medium)).lineLimit(1)
+                                        .frame(maxWidth: .infinity, minHeight: 40)
+                                        .foregroundStyle(draft.restSeconds == seconds ? Color.white : Color.primary)
+                                        .background(draft.restSeconds == seconds ? Color.black : Color.white, in: Capsule())
+                                }
+                                .buttonStyle(.borderless)
+                                .accessibilityAddTraits(draft.restSeconds == seconds ? .isSelected : [])
+                            }
+                        }
+                    }
+                    .padding(16)
+                    .background(Color(red: 0.92, green: 0.95, blue: 1), in: RoundedRectangle(cornerRadius: 22))
+                    .editorRow()
+                } header: { sectionTitle("組間休息") }
+                Section {
                     ForEach($draft.exercises) { $item in
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(library.exercises.first(where: { $0.id == item.exerciseID })?.name ?? "動作").fontWeight(.semibold)
-                            Stepper("\(item.sets.count) 組", value: Binding(get: { item.sets.count }, set: { count in
-                                if count > item.sets.count {
-                                    item.sets.append(WorkoutSet(weight: "0", repetitions: "10"))
-                                } else { item.sets = Array(item.sets.prefix(count)) }
-                            }), in: 1...20)
-                        }.padding(.vertical, 4)
+                        exerciseCard(item: $item)
+                            .editorRow()
                     }
                     .onMove { draft.exercises.move(fromOffsets: $0, toOffset: $1) }
                     .onDelete { draft.exercises.remove(atOffsets: $0) }
-                    Button("加入動作", systemImage: "plus") { selecting = true }
-                }
-                Section("組間休息") { Stepper("\(draft.restSeconds) 秒", value: $draft.restSeconds, in: 5...600, step: 5) }
-                if let error = store.errorMessage { Text(error).foregroundStyle(.red) }
+                    Button { editingName = false; selecting = true } label: {
+                        Label("加入動作", systemImage: "plus")
+                            .font(.headline).frame(maxWidth: .infinity, minHeight: 56)
+                            .foregroundStyle(.primary)
+                            .background(Color(.systemGray6), in: RoundedRectangle(cornerRadius: 20))
+                    }
+                    .buttonStyle(.borderless)
+                    .accessibilityIdentifier("add-template-exercises")
+                    .editorRow()
+                } header: { sectionTitle("動作順序") }
+                if let error = store.errorMessage { Text(error).foregroundStyle(.red).editorRow() }
             }
-            .scrollContentBackground(.hidden).background(.white)
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .scrollDismissesKeyboard(.interactively)
+            .background(.white)
             .environment(\.editMode, $editMode)
             .navigationTitle("編輯模板").navigationBarTitleDisplayMode(.inline)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                Button {
+                    editingName = false
+                    draft.name = draft.name.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if store.saveTemplate(draft) { dismiss() }
+                } label: {
+                    Label("儲存模板", systemImage: "checkmark")
+                        .font(.headline).frame(maxWidth: .infinity, minHeight: 56)
+                }
+                .buttonStyle(PrimaryActionStyle())
+                .disabled(!canSave)
+                .accessibilityIdentifier("save-template")
+                .actionBar()
+            }
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) { Button("取消") { dismiss() } }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button { dismiss() } label: { Image(systemName: "xmark") }
+                        .accessibilityLabel("取消編輯模板")
+                }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("儲存") {
-                        draft.name = draft.name.trimmingCharacters(in: .whitespacesAndNewlines)
-                        if store.saveTemplate(draft) { dismiss() }
-                    }.disabled(draft.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || draft.exercises.isEmpty)
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Button(editMode.isEditing ? "完成排序" : "調整順序") {
+                    Button(editMode.isEditing ? "完成" : "排序") {
+                        editingName = false
                         withAnimation { editMode = editMode.isEditing ? .inactive : .active }
-                    }
+                    }.disabled(draft.exercises.isEmpty)
                 }
+                ToolbarItemGroup(placement: .keyboard) { Spacer(); Button("完成輸入") { editingName = false } }
             }
             .sheet(isPresented: $selecting) {
                 ExercisePicker(library: library) { ids in
@@ -249,6 +317,60 @@ struct TemplateEditor: View {
                 }
             }
         }
+        .presentationDetents([.large])
+        .presentationDragIndicator(.visible)
+        .presentationCornerRadius(32)
+    }
+
+    private func sectionTitle(_ title: String) -> some View {
+        Text(title).font(.headline).foregroundStyle(Color.black).textCase(nil)
+            .padding(.top, 12).padding(.bottom, 4)
+            .accessibilityAddTraits(.isHeader)
+    }
+
+    private func exerciseCard(item: Binding<PlanExercise>) -> some View {
+        let exercise = library.exercises.first { $0.id == item.wrappedValue.exerciseID }
+        let number = (draft.exercises.firstIndex { $0.id == item.wrappedValue.id } ?? 0) + 1
+        return VStack(spacing: 14) {
+            HStack(spacing: 12) {
+                if let exercise {
+                    ExerciseThumbnail(exercise: exercise)
+                        .frame(width: 64, height: 64)
+                        .background(.white, in: RoundedRectangle(cornerRadius: 14))
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                }
+                Text(exercise?.name ?? "動作")
+                    .font(.body.weight(.semibold))
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 0)
+                Text(String(format: "%02d", number))
+                    .font(.caption.monospacedDigit().weight(.semibold))
+                    .foregroundStyle(.secondary)
+            }
+            HStack {
+                Text("組數").font(.subheadline).foregroundStyle(.secondary)
+                Spacer()
+                Stepper(value: Binding(get: { item.wrappedValue.sets.count }, set: { count in
+                    if count > item.wrappedValue.sets.count {
+                        item.wrappedValue.sets.append(WorkoutSet(weight: "0", repetitions: "10"))
+                    } else { item.wrappedValue.sets = Array(item.wrappedValue.sets.prefix(count)) }
+                }), in: 1...20) {
+                    Text("\(item.wrappedValue.sets.count) 組").font(.body.weight(.semibold)).monospacedDigit()
+                }
+                .fixedSize(horizontal: true, vertical: false)
+                .accessibilityLabel("\(exercise?.name ?? "動作")組數")
+            }
+        }
+        .padding(16)
+        .background(AppDesign.surface, in: RoundedRectangle(cornerRadius: AppDesign.cardRadius))
+    }
+}
+
+private extension View {
+    func editorRow() -> some View {
+        listRowSeparator(.hidden)
+            .listRowBackground(Color.white)
+            .listRowInsets(EdgeInsets(top: 6, leading: 20, bottom: 6, trailing: 20))
     }
 }
 
@@ -259,7 +381,7 @@ struct WorkoutClock: View {
         TimelineView(.periodic(from: .now, by: 1)) { context in
             let seconds = max(0, Int(context.date.timeIntervalSince(startedAt)))
             Text(Self.format(seconds))
-                .font(.system(size: compact ? 18 : 44, weight: .semibold, design: .rounded))
+                .font(AppDesign.timerFont(compact: compact))
                 .monospacedDigit()
                 .accessibilityLabel("運動時間 \(seconds / 60) 分 \(seconds % 60) 秒")
         }
@@ -272,6 +394,7 @@ struct WorkoutClock: View {
 struct ActiveWorkoutView: View {
     @Binding var workout: ActiveWorkout
     let library: ExerciseLibrary
+    var onFinished: () -> Void = {}
     @Environment(WorkoutPlanStore.self) private var store
     @Environment(RestTimer.self) private var rest
     @Environment(\.dismiss) private var dismiss
@@ -294,11 +417,23 @@ struct ActiveWorkoutView: View {
                 List {
                     ForEach($workout.plan.exercises) { $item in
                         Section {
+                            if let exercise = library.exercises.first(where: { $0.id == item.exerciseID }) {
+                                NavigationLink { ExerciseDetail(exercise: exercise) } label: {
+                                    HStack(spacing: 14) {
+                                        ExerciseThumbnail(exercise: exercise)
+                                            .frame(width: 64, height: 64)
+                                            .background(.white, in: RoundedRectangle(cornerRadius: AppDesign.imageRadius))
+                                        Text(exercise.name).font(.headline).foregroundStyle(.primary)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }.padding(.vertical, 6)
+                                }.accessibilityLabel("\(exercise.name)動作教學")
+                            }
+
                             HStack {
                                 Text("組").frame(width: 28)
                                 Text("kg").frame(maxWidth: .infinity)
                                 Text("次數").frame(maxWidth: .infinity)
-                                Text("完成").frame(width: 44)
+                                Image(systemName: "checkmark").frame(width: 44).accessibilityLabel("完成")
                             }.font(.caption).foregroundStyle(.secondary)
                             ForEach($item.sets) { $set in
                                 HStack(spacing: 10) {
@@ -314,7 +449,7 @@ struct ActiveWorkoutView: View {
                                         .focused($editing, equals: "reps-\(set.id)")
                                     Button {
                                         editing = nil
-                                        if set.completed { set.completed = false }
+                                        if set.completed { set.completed = false; rest.cancel() }
                                         else { set.completed = true; rest.start(seconds: workout.plan.restSeconds) }
                                     } label: {
                                         Image(systemName: set.completed ? "checkmark.circle.fill" : "circle")
@@ -332,34 +467,35 @@ struct ActiveWorkoutView: View {
                                 let last = item.sets.last
                                 item.sets.append(WorkoutSet(weight: last?.weight ?? "0", repetitions: last?.repetitions ?? "10"))
                             }.font(.subheadline)
-                        } header: {
-                            HStack {
-                                Text(library.exercises.first(where: { $0.id == item.exerciseID })?.name ?? "動作")
-                                    .font(.headline).foregroundStyle(.primary).textCase(nil)
-                                Spacer()
-                                if let exercise = library.exercises.first(where: { $0.id == item.exerciseID }) {
-                                    NavigationLink { ExerciseDetail(exercise: exercise) } label: { Image(systemName: "play.rectangle") }
-                                        .accessibilityLabel("\(exercise.name)動作教學")
-                                }
-                            }
                         }
+                        .listRowBackground(AppDesign.surface)
                     }
                     if let error = store.errorMessage { Text(error).foregroundStyle(.red) }
                     Section {
-                        Button("結束運動", systemImage: "checkmark.flag") { editing = nil; finishing = true }
-                            .disabled(workout.plan.completedCount == 0)
                         Button("放棄本次運動", role: .destructive) { discarding = true }
                     }
                 }
                 .scrollContentBackground(.hidden).background(.white)
+                .scrollDismissesKeyboard(.interactively)
+            }
+            .safeAreaInset(edge: .bottom) {
+                Button { editing = nil; finishing = true } label: {
+                    Label("結束運動", systemImage: "checkmark.flag")
+                }
+                .buttonStyle(PrimaryActionStyle())
+                .accessibilityIdentifier("finish-workout")
+                .actionBar()
             }
             .navigationTitle(workout.plan.name).navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) { Button("收合") { dismiss() } }
                 ToolbarItemGroup(placement: .keyboard) { Spacer(); Button("完成輸入") { editing = nil } }
             }
-            .confirmationDialog("結束並儲存本次運動？", isPresented: $finishing, titleVisibility: .visible) {
-                Button("儲存紀錄") { if store.finishWorkout() { rest.cancel(); dismiss() } }
+            .alert("無法儲存", isPresented: Binding(get: { store.errorMessage != nil }, set: { if !$0 { store.errorMessage = nil } })) {
+                Button("好", role: .cancel) { }
+            } message: { Text(store.errorMessage ?? "請再試一次。") }
+            .confirmationDialog(workout.plan.completedCount == 0 ? "尚未勾選任何組數，要儲存為 0 組紀錄嗎？" : "結束並儲存已完成的 \(workout.plan.completedCount) 組？", isPresented: $finishing, titleVisibility: .visible) {
+                Button("儲存紀錄") { if store.finishWorkout() { rest.cancel(); onFinished(); dismiss() } }
                 Button("繼續運動", role: .cancel) { }
             }
             .confirmationDialog("放棄本次運動？", isPresented: $discarding, titleVisibility: .visible) {
@@ -374,20 +510,37 @@ struct WorkoutHistoryView: View {
     let library: ExerciseLibrary
     @Environment(WorkoutPlanStore.self) private var store
     var body: some View {
-        List {
-            if store.archive.records.isEmpty { Text("尚無訓練紀錄").foregroundStyle(.secondary) }
-            ForEach(store.archive.records) { record in
-                NavigationLink { WorkoutRecordView(record: record, library: library) } label: {
-                    HStack {
-                        Text(record.plan.name)
-                        Spacer()
-                        Text(record.date.formatted(date: .abbreviated, time: .omitted)).font(.caption).foregroundStyle(.secondary)
-                    }
+        ScrollView {
+            LazyVStack(spacing: 14) {
+                if store.archive.records.isEmpty {
+                    ContentUnavailableView("尚無運動紀錄", systemImage: "clock.arrow.circlepath")
+                        .padding(.top, 60)
                 }
-            }
+                ForEach(store.archive.records) { record in
+                    NavigationLink { WorkoutRecordView(record: record, library: library) } label: {
+                        VStack(alignment: .leading, spacing: 16) {
+                            HStack {
+                                Text(record.plan.name).font(.headline)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                Spacer(minLength: 8)
+                                Image(systemName: "chevron.right").font(.caption.weight(.semibold))
+                            }
+                            Divider()
+                            LabeledContent("日期", value: AppDesign.date(record.date))
+                            LabeledContent("完成組數", value: "\(record.plan.completedCount) 組")
+                            if let duration = record.durationSeconds {
+                                LabeledContent("運動時間", value: WorkoutClock.format(duration))
+                            }
+                        }
+                        .font(.subheadline).foregroundStyle(.primary).appCard()
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("record-\(record.id)")
+                }
+            }.padding(AppDesign.pagePadding)
         }
-        .scrollContentBackground(.hidden).background(.white)
-        .navigationTitle("訓練紀錄")
+        .background(.white)
+        .navigationTitle("運動紀錄")
     }
 }
 
@@ -395,73 +548,182 @@ struct WorkoutRecordView: View {
     let record: WorkoutRecord
     let library: ExerciseLibrary
     var body: some View {
-        List {
-            Text(record.date.formatted(date: .abbreviated, time: .shortened))
-            if let duration = record.durationSeconds { LabeledContent("運動時間", value: WorkoutClock.format(duration)) }
-            ForEach(record.plan.exercises) { item in
-                if item.sets.contains(where: \.completed) {
-                    Section(library.exercises.first(where: { $0.id == item.exerciseID })?.name ?? "動作") {
-                        ForEach(Array(item.sets.enumerated()), id: \.element.id) { index, set in
-                            if set.completed {
-                                HStack { Text("第 \(index + 1) 組"); Spacer(); Text("\(set.weight) kg × \(set.repetitions) 次") }
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 20) {
+                VStack(spacing: 14) {
+                    LabeledContent("日期", value: AppDesign.date(record.date))
+                    if let duration = record.durationSeconds { LabeledContent("運動時間", value: WorkoutClock.format(duration)) }
+                    LabeledContent("完成組數", value: "\(record.plan.completedCount) 組")
+                }.font(.subheadline).appCard()
+                if record.plan.completedCount == 0 {
+                    ContentUnavailableView("沒有完成的組數", systemImage: "checkmark.circle")
+                }
+                ForEach(record.plan.exercises) { item in
+                    if item.sets.contains(where: \.completed) {
+                        VStack(alignment: .leading, spacing: 16) {
+                            HStack(spacing: 14) {
+                                if let exercise = library.exercises.first(where: { $0.id == item.exerciseID }) {
+                                    ExerciseThumbnail(exercise: exercise)
+                                        .frame(width: 64, height: 64)
+                                        .background(.white, in: RoundedRectangle(cornerRadius: AppDesign.imageRadius))
+                                    Text(exercise.name).font(.headline)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                } else { Text("動作").font(.headline) }
                             }
-                        }
+                            Divider()
+                            ForEach(Array(item.sets.enumerated()), id: \.element.id) { index, set in
+                                if set.completed {
+                                    LabeledContent("第 \(index + 1) 組", value: "\(set.weight) kg × \(set.repetitions) 次")
+                                        .font(.body.monospacedDigit())
+                                }
+                            }
+                        }.appCard()
                     }
                 }
-            }
+            }.padding(AppDesign.pagePadding)
         }
-        .scrollContentBackground(.hidden).background(.white)
+        .background(.white)
         .navigationTitle(record.plan.name).navigationBarTitleDisplayMode(.inline)
     }
 }
-private struct ExercisePicker: View {
+struct ExercisePicker: View {
     let library: ExerciseLibrary
     let onAdd: ([String]) -> Void
     @Environment(\.dismiss) private var dismiss
     @State private var selected: [String] = []
     @State private var search = ""
+    @State private var category = "全部"
+
+    private var filtered: [Exercise] {
+        let query = search.trimmingCharacters(in: .whitespacesAndNewlines)
+        return library.exercises.filter {
+            (category == "全部" || $0.category == category) &&
+            (query.isEmpty || $0.name.localizedStandardContains(query))
+        }
+    }
 
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(ExerciseLibrary.categories, id: \.self) { category in
-                    let exercises = library.exercises.filter {
-                        $0.category == category && (search.isEmpty || $0.name.localizedStandardContains(search))
-                    }
-                    if !exercises.isEmpty {
-                        Section(category) {
-                            ForEach(exercises) { exercise in
-                                Button {
-                                    if selected.contains(exercise.id) { selected.removeAll { $0 == exercise.id } }
-                                    else { selected.append(exercise.id) }
-                                } label: {
-                                    HStack {
-                                        Text(exercise.name).foregroundStyle(.primary)
-                                        Spacer()
-                                        if let index = selected.firstIndex(of: exercise.id) {
-                                            Text("\(index + 1)")
-                                                .font(.caption.bold()).foregroundStyle(.white)
-                                                .frame(width: 26, height: 26).background(.black, in: Circle())
-                                        } else { Image(systemName: "circle").foregroundStyle(.secondary) }
-                                    }
-                                }
-                                .accessibilityAddTraits(selected.contains(exercise.id) ? .isSelected : [])
-                                .accessibilityIdentifier("select-exercise-\(exercise.id)")
+            VStack(spacing: 0) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 8) {
+                        ForEach(["全部"] + ExerciseLibrary.categories, id: \.self) { name in
+                            Button { category = name } label: {
+                                Text(name).font(.subheadline.weight(.semibold))
+                                    .padding(.horizontal, 18).frame(minHeight: 42)
+                                    .foregroundStyle(category == name ? Color.white : Color.primary)
+                                    .background(category == name ? Color.black : Color(.systemGray6), in: Capsule())
                             }
+                            .buttonStyle(.plain)
+                            .accessibilityAddTraits(category == name ? .isSelected : [])
                         }
                     }
+                    .padding(.horizontal, 20).padding(.vertical, 12)
+                }
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        LazyVStack(alignment: .leading, spacing: 12) {
+                            Color.clear.frame(height: 0).id("picker-top")
+                            if filtered.isEmpty {
+                                ContentUnavailableView("找不到動作", systemImage: "magnifyingglass")
+                                    .frame(maxWidth: .infinity).padding(.top, 32)
+                            }
+                            ForEach(ExerciseLibrary.categories, id: \.self) { group in
+                                let exercises = filtered.filter { $0.category == group }
+                                if !exercises.isEmpty {
+                                    Text(group).font(.title3.bold())
+                                        .padding(.top, 10).padding(.bottom, 2)
+                                        .accessibilityAddTraits(.isHeader)
+                                    ForEach(exercises) { exercise in
+                                        selectionRow(exercise)
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 20).padding(.bottom, 20)
+                    }
+                    .scrollDismissesKeyboard(.interactively)
+                    .onChange(of: category) { _, _ in proxy.scrollTo("picker-top", anchor: .top) }
+                    .onChange(of: search) { _, _ in proxy.scrollTo("picker-top", anchor: .top) }
                 }
             }
-            .navigationTitle("選擇動作")
-            .searchable(text: $search, prompt: "搜尋動作")
+            .background(.white)
+            .navigationTitle("加入動作")
+            .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $search, placement: .navigationBarDrawer(displayMode: .always), prompt: "搜尋動作")
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                Button {
+                    onAdd(selected)
+                    dismiss()
+                } label: {
+                    HStack(spacing: 10) {
+                        Text(selected.isEmpty ? "選擇動作" : "加入 \(selected.count) 個動作")
+                        if !selected.isEmpty { Image(systemName: "arrow.right") }
+                    }
+                    .font(.headline).frame(maxWidth: .infinity).frame(minHeight: 56)
+                }
+                .buttonStyle(PrimaryActionStyle())
+                .disabled(selected.isEmpty)
+                .accessibilityIdentifier("confirm-exercise-selection")
+                .actionBar()
+            }
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) { Button("取消") { dismiss() } }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("加入（\(selected.count)）") { onAdd(selected); dismiss() }
-                        .disabled(selected.isEmpty).accessibilityIdentifier("confirm-exercise-selection")
+                ToolbarItem(placement: .cancellationAction) {
+                    Button { dismiss() } label: { Image(systemName: "xmark") }
+                        .accessibilityLabel("取消加入動作")
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("清除") { selected.removeAll() }.disabled(selected.isEmpty)
                 }
             }
         }
+        .presentationDetents([.large])
+        .presentationDragIndicator(.visible)
+        .presentationCornerRadius(32)
+    }
+
+    private func selectionRow(_ exercise: Exercise) -> some View {
+        let index = selected.firstIndex(of: exercise.id)
+        return Button {
+            if index != nil { selected.removeAll { $0 == exercise.id } }
+            else { selected.append(exercise.id) }
+        } label: {
+            HStack(spacing: 14) {
+                ExerciseThumbnail(exercise: exercise)
+                    .frame(width: 76, height: 76)
+                    .background(.white, in: RoundedRectangle(cornerRadius: 14))
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                Text(exercise.name)
+                    .font(.body.weight(.semibold))
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .foregroundStyle(.primary)
+                Spacer(minLength: 0)
+                ZStack {
+                    Circle().fill(index == nil ? Color.white : Color.black)
+                    if let index {
+                        Text("\(index + 1)").font(.caption.bold()).foregroundStyle(.white)
+                    } else {
+                        Circle().strokeBorder(Color(.systemGray3), lineWidth: 1.5)
+                    }
+                }
+                .frame(width: 28, height: 28)
+            }
+            .padding(12)
+            .background(index == nil ? Color(.systemGray6) : Color(red: 0.91, green: 0.94, blue: 1), in: RoundedRectangle(cornerRadius: 22))
+            .overlay {
+                RoundedRectangle(cornerRadius: 22)
+                    .strokeBorder(index == nil ? Color.clear : Color.blue.opacity(0.28), lineWidth: 1.5)
+            }
+            .contentShape(RoundedRectangle(cornerRadius: 22))
+        }
+        .buttonStyle(.plain)
+        .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityLabel(exercise.name)
+        .accessibilityValue(index.map { "已選取，第 \($0 + 1) 個動作" } ?? "未選取")
+        .accessibilityAddTraits(index == nil ? [] : .isSelected)
+        .accessibilityIdentifier("select-exercise-\(exercise.id)")
     }
 }
 

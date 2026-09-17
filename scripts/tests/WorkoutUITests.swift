@@ -1,0 +1,118 @@
+import XCTest
+final class WorkoutUITests: XCTestCase {
+ override func setUp() { continueAfterFailure = false }
+ func shot(_ name: String) {
+  Thread.sleep(forTimeInterval: 0.8)
+  let a = XCTAttachment(screenshot: XCUIScreen.main.screenshot()); a.name = name; a.lifetime = .keepAlways; add(a)
+ }
+ func testFlow() {
+  let app = XCUIApplication(); app.launchArguments = ["reset-audit"]; app.launch()
+  XCTAssertTrue(app.buttons["category-anatomy-chest"].waitForExistence(timeout: 15))
+  shot("01-home")
+  app.buttons["category-anatomy-chest"].tap()
+  shot("02-category")
+  app.buttons["exercise-0025"].tap()
+  XCTAssertTrue(app.buttons["playback-toggle"].waitForExistence(timeout: 10))
+  shot("03-exercise")
+  app.buttons["playback-toggle"].tap()
+  app.buttons["favorite-0025"].tap()
+  app.navigationBars.buttons.element(boundBy: 0).tap()
+  app.navigationBars.buttons.element(boundBy: 0).tap()
+  app.tabBars.buttons["健身計劃"].tap()
+  shot("04-templates")
+  app.buttons["create-template"].tap()
+  shot("05-editor")
+  app.buttons["add-template-exercises"].tap()
+  XCTAssertTrue(app.buttons["select-exercise-0025"].waitForExistence(timeout: 10))
+  shot("06-picker")
+  app.buttons["select-exercise-0025"].tap()
+  app.buttons["confirm-exercise-selection"].tap()
+  app.buttons["save-template"].tap()
+  app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'template-'")).firstMatch.tap()
+  shot("07-template-overview")
+  app.buttons["start-workout"].tap()
+  shot("08-workout")
+  let weight = app.textFields["重量，公斤"].firstMatch
+  weight.tap(); weight.typeText(XCUIKeyboardKey.delete.rawValue + "40")
+  let reps = app.textFields["次數"].firstMatch
+  reps.tap(); reps.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 2) + "8")
+  app.buttons["完成輸入"].tap()
+  let complete = app.buttons["完成這一組並休息"].firstMatch
+  XCTAssertTrue(complete.waitForExistence(timeout: 5)); complete.tap()
+  let allow = XCUIApplication(bundleIdentifier: "com.apple.springboard").alerts.buttons["Allow"]
+  if allow.waitForExistence(timeout: 3) { allow.tap() }
+  shot("09-rest")
+  app.buttons["收合"].tap()
+  XCTAssertTrue(app.buttons["resume-workout-bar"].waitForExistence(timeout: 5))
+  shot("10-minibar")
+  app.buttons["resume-workout-bar"].tap()
+  app.buttons["finish-workout"].tap()
+  XCTAssertTrue(app.buttons["儲存紀錄"].waitForExistence(timeout: 5)); app.buttons["儲存紀錄"].tap()
+  XCTAssertTrue(app.navigationBars["運動紀錄"].waitForExistence(timeout: 5))
+  XCTAssertFalse(app.buttons["resume-workout-bar"].exists)
+  shot("11-history")
+  app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'record-'")).firstMatch.tap()
+  XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "40 kg × 8 次")).firstMatch.waitForExistence(timeout: 5))
+  shot("12-record")
+  app.navigationBars.buttons.element(boundBy: 0).tap()
+  app.tabBars.buttons["收藏"].tap()
+  XCTAssertTrue(app.buttons["exercise-0025"].waitForExistence(timeout: 5))
+  shot("13-favorites")
+ }
+
+ func testEmptyFinishAndDiscard() {
+  let app = XCUIApplication(); app.launchArguments = ["reset-audit"]; app.launch()
+  app.tabBars.buttons["健身計劃"].tap()
+  let template = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'template-'")).firstMatch
+  template.tap(); app.buttons["start-workout"].tap()
+  app.buttons["finish-workout"].tap()
+  XCTAssertTrue(app.buttons["儲存紀錄"].waitForExistence(timeout: 5)); app.buttons["儲存紀錄"].tap()
+  XCTAssertTrue(app.navigationBars["運動紀錄"].waitForExistence(timeout: 5))
+  app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'record-'")).firstMatch.tap()
+  XCTAssertTrue(app.staticTexts["沒有完成的組數"].waitForExistence(timeout: 5))
+  shot("14-empty-record")
+  app.tabBars.buttons["健身計劃"].tap()
+  app.buttons["start-workout"].tap()
+  for _ in 0..<15 {
+   if app.buttons["放棄本次運動"].isHittable { break }
+   app.swipeUp()
+  }
+  app.buttons["放棄本次運動"].tap()
+  app.sheets.buttons["放棄本次運動"].tap()
+  XCTAssertTrue(app.buttons["start-workout"].waitForExistence(timeout: 5))
+  XCTAssertFalse(app.buttons["resume-workout-bar"].exists)
+ }
+ func testLargeText() {
+  let app = XCUIApplication(); app.launchArguments = ["reset-audit", "large-text"]; app.launch()
+  XCTAssertTrue(app.buttons["category-anatomy-chest"].waitForExistence(timeout: 10))
+  shot("15-large-home")
+  app.buttons["category-anatomy-chest"].tap()
+  XCTAssertTrue(app.buttons["exercise-0025"].waitForExistence(timeout: 5))
+  shot("16-large-category")
+  app.buttons["exercise-0025"].tap()
+  XCTAssertTrue(app.buttons["playback-toggle"].waitForExistence(timeout: 5))
+  shot("17-large-detail")
+  app.swipeUp(); shot("18-large-instructions")
+  app.navigationBars.buttons.element(boundBy: 0).tap()
+  app.navigationBars.buttons.element(boundBy: 0).tap()
+  app.tabBars.buttons["健身計劃"].tap()
+  shot("19-large-templates")
+  app.buttons["create-template"].tap()
+  shot("20-large-editor")
+  app.swipeUp(); shot("21-large-editor-controls")
+  app.buttons["add-template-exercises"].tap()
+  XCTAssertTrue(app.buttons["select-exercise-0025"].waitForExistence(timeout: 5))
+  shot("22-large-picker")
+  app.buttons["select-exercise-0025"].tap()
+  app.buttons["confirm-exercise-selection"].tap()
+  app.buttons["save-template"].tap()
+  app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'template-'")).firstMatch.tap()
+  shot("23-large-overview")
+  app.buttons["start-workout"].tap()
+  shot("24-large-workout")
+  app.buttons["finish-workout"].tap()
+  app.buttons["儲存紀錄"].tap()
+  XCTAssertTrue(app.navigationBars["運動紀錄"].waitForExistence(timeout: 5))
+  shot("25-large-history")
+ }
+}

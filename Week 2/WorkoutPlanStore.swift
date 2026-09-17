@@ -23,6 +23,7 @@ struct PlanExercise: Codable, Identifiable, Equatable {
 
 struct WorkoutPlan: Codable, Identifiable, Equatable {
     var id = UUID()
+    var presetID: String? = nil
     var name = "新模板"
     var restSeconds = 90
     var exercises: [PlanExercise] = []
@@ -50,6 +51,7 @@ struct WorkoutArchive: Codable {
     var plans: [WorkoutPlan] = []
     var records: [WorkoutRecord] = []
     var activeWorkout: ActiveWorkout? = nil
+    var presetVersion: Int? = nil
 }
 
 @Observable final class WorkoutPlanStore {
@@ -68,6 +70,43 @@ struct WorkoutArchive: Codable {
             archive = WorkoutArchive()
             canSave = false
             errorMessage = "無法讀取健身計劃，原始資料已保留。請重新開啟 App 再試一次。"
+        }
+        installPresetsIfNeeded()
+    }
+
+    private func installPresetsIfNeeded() {
+        guard canSave, (archive.presetVersion ?? 0) < 2 else { return }
+        var updated = archive
+        if archive.presetVersion == nil {
+            updated.plans.append(contentsOf: Self.presetTemplates)
+        } else {
+            // Version 1 did not persist template origin. Match the shipped names and
+            // exercise order once; subsequent edits retain the explicit preset ID.
+            for preset in Self.presetTemplates {
+                if let index = updated.plans.firstIndex(where: {
+                    $0.presetID == nil && $0.name == preset.name &&
+                    $0.exercises.map(\.exerciseID) == preset.exercises.map(\.exerciseID)
+                }) {
+                    updated.plans[index].presetID = preset.presetID
+                }
+            }
+        }
+        updated.presetVersion = 2
+        _ = commit(updated)
+    }
+
+    static var presetTemplates: [WorkoutPlan] {
+        let definitions: [(String, [String])] = [
+            ("雙分化・上半身", ["0025", "0198", "0861", "0405", "0294", "0200"]),
+            ("雙分化・下半身", ["0043", "0085", "0739", "0586", "0274"]),
+            ("三分化・推", ["0025", "0314", "0405", "0334", "0200"]),
+            ("三分化・拉", ["0198", "0027", "0861", "0380", "0313"]),
+            ("三分化・腿", ["0043", "0085", "3470", "0586", "0276"])
+        ]
+        return definitions.map { name, ids in
+            WorkoutPlan(presetID: name, name: name, exercises: ids.map {
+                PlanExercise(exerciseID: $0, sets: (0..<3).map { _ in WorkoutSet(weight: "0", repetitions: "10") })
+            })
         }
     }
 
@@ -103,7 +142,7 @@ struct WorkoutArchive: Codable {
     }
 
     @discardableResult func finishWorkout(now: Date = Date()) -> Bool {
-        guard let active = archive.activeWorkout, active.plan.completedCount > 0 else { return false }
+        guard let active = archive.activeWorkout else { return false }
         var updated = archive
         updated.records.insert(WorkoutRecord(date: now, plan: active.plan, durationSeconds: active.elapsed(at: now)), at: 0)
         updated.activeWorkout = nil

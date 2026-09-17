@@ -6,6 +6,16 @@ import Foundation
         defer { try? FileManager.default.removeItem(at: directory) }
         let file = directory.appending(path: "plans.json")
         let store = WorkoutPlanStore(fileURL: file)
+        precondition(store.archive.plans.count == 5)
+        precondition(store.archive.presetVersion == 2)
+        precondition(WorkoutPlanStore(fileURL: file).archive.plans.count == 5, "Seed only once")
+        precondition(store.archive.plans.allSatisfy { $0.presetID != nil })
+        var renamed = store.archive.plans[0]
+        renamed.name = "重新命名"
+        precondition(store.saveTemplate(renamed))
+        precondition(WorkoutPlanStore(fileURL: file).archive.plans[0].presetID == renamed.presetID)
+        store.archive.plans.removeAll()
+        precondition(WorkoutPlanStore(fileURL: file).archive.plans.isEmpty, "Do not restore deleted presets")
         var template = WorkoutPlan(name: "胸背模板")
         template.exercises = [PlanExercise(exerciseID: "0025"), PlanExercise(exerciseID: "0652")]
         template.exercises.swapAt(0, 1)
@@ -32,6 +42,11 @@ import Foundation
         precondition(!restored.finishWorkout(), "No duplicate records")
         precondition(restored.startWorkout(templateID: template.id))
         precondition(restored.archive.activeWorkout?.plan.completedCount == 0)
+        precondition(restored.finishWorkout(), "An unchecked workout can still end")
+        precondition(restored.archive.records.first?.plan.completedCount == 0)
+        precondition(restored.archive.activeWorkout == nil)
+        restored.archive.records.removeFirst()
+        precondition(restored.startWorkout(templateID: template.id))
         precondition(restored.discardWorkout())
         precondition(restored.archive.records.count == 1)
         restored.archive.plans.removeAll()
@@ -50,6 +65,24 @@ import Foundation
         legacy["records"] = records
         let decoded = try JSONDecoder().decode(WorkoutArchive.self, from: JSONSerialization.data(withJSONObject: legacy))
         precondition(decoded.records.count == 1 && decoded.records[0].durationSeconds == nil)
+        legacy.removeValue(forKey: "presetVersion")
+        legacy["plans"] = try JSONSerialization.jsonObject(with: JSONEncoder().encode([template]))
+        let migrationFile = directory.appending(path: "legacy.json")
+        try JSONSerialization.data(withJSONObject: legacy).write(to: migrationFile)
+        let migrated = WorkoutPlanStore(fileURL: migrationFile)
+        precondition(migrated.archive.plans.count == 6 && migrated.archive.plans[0].id == template.id)
+        precondition(migrated.archive.records.count == 1)
+        precondition(WorkoutPlanStore(fileURL: migrationFile).archive.plans.count == 6)
+        let v1File = directory.appending(path: "v1.json")
+        var oldPresets = WorkoutPlanStore.presetTemplates
+        for index in oldPresets.indices { oldPresets[index].presetID = nil }
+        let v1 = WorkoutArchive(plans: [template] + oldPresets, presetVersion: 1)
+        try JSONEncoder().encode(v1).write(to: v1File)
+        let upgraded = WorkoutPlanStore(fileURL: v1File)
+        precondition(upgraded.archive.plans.count == 6)
+        precondition(upgraded.archive.plans[0].presetID == nil)
+        precondition(upgraded.archive.plans.dropFirst().allSatisfy { $0.presetID != nil })
+        precondition(upgraded.archive.plans.map(\.id) == v1.plans.map(\.id))
         let corrupt = directory.appending(path: "corrupt.json")
         let original = Data("not json".utf8)
         try original.write(to: corrupt)

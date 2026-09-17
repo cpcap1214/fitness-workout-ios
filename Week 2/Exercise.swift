@@ -14,6 +14,10 @@ struct Exercise: Decodable, Identifiable, Hashable {
 
     var gifURL: URL? { Bundle.main.url(forResource: gifFile, withExtension: nil) }
     var thumbnailURL: URL? { Bundle.main.url(forResource: thumbnailFile, withExtension: nil) }
+    var remoteThumbnailURL: URL? {
+        URL(string: "https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/7455efae41b330c265e7cd4b78dfa848e7ce5ebd/images/")?
+            .appendingPathComponent(thumbnailFile)
+    }
 }
 
 struct ExerciseLibrary {
