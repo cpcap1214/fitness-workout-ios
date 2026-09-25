@@ -41,6 +41,7 @@ import Observation
         let duration = max(1, seconds)
         let id = UUID().uuidString
         requestID = id
+        // 保存結束時間，回到前景或重開 App 時可重新算出剩餘秒數。
         deadline = Date().addingTimeInterval(Double(duration))
         remaining = duration
         defaults.set(deadline, forKey: "workout.rest.deadline")

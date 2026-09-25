@@ -128,6 +128,7 @@ struct WorkoutArchive: Codable {
         guard archive.activeWorkout == nil,
               var plan = archive.plans.first(where: { $0.id == templateID }),
               !plan.exercises.isEmpty else { return false }
+        // 使用模板的值型別副本並重設完成狀態，讓每次訓練互不影響。
         for i in plan.exercises.indices {
             if plan.exercises[i].sets.isEmpty { plan.exercises[i].sets = [WorkoutSet()] }
             for j in plan.exercises[i].sets.indices {
@@ -155,7 +156,7 @@ struct WorkoutArchive: Codable {
         return commit(updated)
     }
 
-    // Critical transitions persist before changing the visible session state.
+    // 開始或結束運動時先存檔，成功後才更新狀態，避免儲存失敗卻清掉當次訓練。
     private func commit(_ updated: WorkoutArchive) -> Bool {
         guard canSave else { return false }
         do {
@@ -170,6 +171,7 @@ struct WorkoutArchive: Codable {
 
     private func write(_ value: WorkoutArchive) throws {
         try FileManager.default.createDirectory(at: fileURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+        // 先寫入暫存檔再替換原檔，降低寫入中斷造成資料不完整的風險。
         try JSONEncoder().encode(value).write(to: fileURL, options: .atomic)
     }
 

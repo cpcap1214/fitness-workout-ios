@@ -379,6 +379,7 @@ struct WorkoutClock: View {
     var compact = false
     var body: some View {
         TimelineView(.periodic(from: .now, by: 1)) { context in
+            // 以開始時間計算累計秒數，收合或切換分頁後不依賴畫面持續累加。
             let seconds = max(0, Int(context.date.timeIntervalSince(startedAt)))
             Text(Self.format(seconds))
                 .font(AppDesign.timerFont(compact: compact))
@@ -449,6 +450,7 @@ struct ActiveWorkoutView: View {
                                         .focused($editing, equals: "reps-\(set.id)")
                                     Button {
                                         editing = nil
+                                        // 完成一組就開始休息；取消勾選時，也取消目前的休息倒數。
                                         if set.completed { set.completed = false; rest.cancel() }
                                         else { set.completed = true; rest.start(seconds: workout.plan.restSeconds) }
                                     } label: {
